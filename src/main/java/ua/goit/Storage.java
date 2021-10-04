@@ -26,4 +26,16 @@ public class Storage {
         cursor++;
     }
 
+    public void delete(Publication publication) {
+        for (int i = 0; i < publications.length; i++) {
+            if (publications[i].equals(publication)) {
+                publications[i] = null;
+            }
+        }
+    }
+
+    public Publication[] findAll() {
+        return Arrays.copyOf(publications, publications.length);
+    }
+
 }
