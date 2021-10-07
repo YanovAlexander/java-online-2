@@ -26,12 +26,24 @@ public class Storage {
         cursor++;
     }
 
-    public void delete(Publication publication) {
+    public Publication remove(Publication publication) {
+        Publication publicationRemoved = null;
         for (int i = 0; i < publications.length; i++) {
             if (publications[i].equals(publication)) {
+                publicationRemoved = publications[i];
                 publications[i] = null;
             }
         }
+        return publicationRemoved;
+    }
+
+    public Publication remove(int index) {
+        if (index >= publications.length || index < 0) {
+            return null;
+        }
+        Publication publication = publications[index];
+        publications[index] = null;
+        return publication;
     }
 
     public Publication[] findAll() {
