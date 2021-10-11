@@ -1,4 +1,4 @@
-package ua.goit;
+package ua.goit.model;
 
 public class Book extends Publication {
     private String author;
@@ -9,8 +9,8 @@ public class Book extends Publication {
     }
 
     @Override
-    public String print() {
-        return "Book{" + super.print() + ", author = " + this.author + "}";
+    public String toString() {
+        return "Book{" + super.toString() + ", author = " + this.author + "}";
     }
 
 }

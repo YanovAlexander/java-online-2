@@ -1,4 +1,4 @@
-package ua.goit;
+package ua.goit.model;
 
 public class Journal extends Publication {
     private int number;
@@ -11,7 +11,7 @@ public class Journal extends Publication {
     }
 
     @Override
-    public String print() {
-        return "Journal{" + super.print() + ", number = " + this.number + ", year = " + this.publicationYear + "}";
+    public String toString() {
+        return "Journal{" + super.toString() + ", number = " + this.number + ", year = " + this.publicationYear + "}";
     }
 }

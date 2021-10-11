@@ -1,4 +1,4 @@
-package ua.goit;
+package ua.goit.model;
 
 import java.util.Objects;
 
@@ -11,7 +11,8 @@ public class Publication {
         this.countPages = countPages;
     }
 
-    public String print() {
+    @Override
+    public String toString() {
         return "name = " + this.name + ", countPages = " + this.countPages;
     }
 

@@ -1,4 +1,6 @@
-package ua.goit;
+package ua.goit.repository;
+
+import ua.goit.model.Publication;
 
 import java.util.Arrays;
 

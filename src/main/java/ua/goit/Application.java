@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class Application {
 
+    public static void main(String[] args) {
+        menu();
+    }
+
+
     public static void menu() {
 
         Scanner scanner = new Scanner(System.in);
