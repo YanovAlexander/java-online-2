@@ -2,7 +2,7 @@ package ua.goit;
 
 import ua.goit.model.Book;
 import ua.goit.model.Journal;
-import ua.goit.model.Publication;
+import ua.goit.repository.InMemoryStorage;
 import ua.goit.repository.Storage;
 
 import java.util.Scanner;
@@ -15,7 +15,7 @@ public class Application {
 
 
     public static void menu() {
-        Storage library = new Storage();
+        Storage library = new InMemoryStorage();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Library. Please, enter help to see available commands:");
         String command = null;
@@ -32,7 +32,7 @@ public class Application {
                     addBookToLibrary(library, scanner);
                     break;
                 case ("addJournal"):
-                    addJournalToLibrary(library,scanner);
+                    addJournalToLibrary(library, scanner);
                     break;
                 case ("exit"):
                     System.out.println("Good bye!");
@@ -46,63 +46,59 @@ public class Application {
     }
 
     private static void addBookToLibrary(Storage library, Scanner scanner) {
-        System.out.println("enter Book name");
+        System.out.println("Enter book name:");
         String bookName = scanner.nextLine();
-
-        int countPage;
+        System.out.println("Enter count of pages:");
+        int countPages = 0;
         while (true) {
             try {
-                System.out.println("enter pages count");
-                countPage = Integer.parseInt(scanner.nextLine());
+                countPages = Integer.parseInt(scanner.nextLine());
                 break;
-            } catch (NumberFormatException ex) {
-                System.out.println("You enter not pages count");
+            } catch (NumberFormatException e) {
+                System.out.println("Please, enter correct number:");
             }
         }
-        System.out.println("enter author book");
+        System.out.println("Enter author name:");
         String authorName = scanner.nextLine();
-        Book book = new Book(bookName, countPage, authorName);
+        Book book = new Book(bookName, countPages, authorName);
         library.add(book);
         System.out.println("Book created");
     }
 
     private static void addJournalToLibrary(Storage library, Scanner scanner) {
-        System.out.println("enter Journal name");
+        System.out.println("Enter journal name:");
         String journalName = scanner.nextLine();
-        int countPage;
+        System.out.println("Enter count of pages:");
+        int countPages = 0;
         int number;
         int publicationYear;
         while (true) {
             try {
-                System.out.println("enter pages count");
-                countPage = Integer.parseInt(scanner.nextLine());
+                countPages = Integer.parseInt(scanner.nextLine());
                 break;
-            } catch (NumberFormatException ex) {
-                System.out.println("You enter not pages count");
+            } catch (NumberFormatException e) {
+                System.out.println("Please, enter correct number:");
             }
         }
         while (true) {
             try {
-                System.out.println("enter number journal");
                 number = Integer.parseInt(scanner.nextLine());
                 break;
-            } catch (NumberFormatException ex) {
-                System.out.println("You enter not number journal");
+            } catch (NumberFormatException e) {
+                System.out.println("Please, enter correct number:");
             }
         }
         while (true) {
             try {
-                System.out.println("Enter publication year");
                 publicationYear = Integer.parseInt(scanner.nextLine());
-                if (publicationYear < 1660){
-                    System.out.println("you enter not correct year");
-                }
                 break;
-            } catch (NumberFormatException ex) {
-                System.out.println("You enter not correct year");
+            } catch (NumberFormatException e) {
+                System.out.println("Please, enter correct number:");
             }
         }
-        Journal journal = new Journal(journalName, countPage, number, publicationYear);
+        System.out.println("Enter author name:");
+        String authorName = scanner.nextLine();
+        Journal journal = new Journal(journalName, countPages, number, publicationYear);
         library.add(journal);
         System.out.println("Journal created");
     }
