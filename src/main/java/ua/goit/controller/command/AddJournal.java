@@ -23,12 +23,12 @@ public class AddJournal implements Command {
     public void process() {
         view.write("Enter journal name:");
         String journalName = view.read();
-        System.out.println("Enter count of pages:");
         int countPages = 0;
-        int number;
-        int publicationYear;
+        int number = 0;
+        int publicationYear = 0;
         while (true) {
             try {
+                view.write("Enter count of pages:");
                 countPages = Integer.parseInt(view.read());
                 break;
             } catch (NumberFormatException e) {
@@ -37,6 +37,7 @@ public class AddJournal implements Command {
         }
         while (true) {
             try {
+                view.write("Enter journal number:");
                 number = Integer.parseInt(view.read());
                 break;
             } catch (NumberFormatException e) {
@@ -45,13 +46,13 @@ public class AddJournal implements Command {
         }
         while (true) {
             try {
+                view.write("Enter journal publication year:");
                 publicationYear = Integer.parseInt(view.read());
                 break;
             } catch (NumberFormatException e) {
                 view.write("Please, enter correct number:");
             }
         }
-        view.write("Enter author name:");
         Journal journal = new Journal(journalName, countPages, number, publicationYear);
         storage.add(journal);
         view.write("Journal created");

@@ -12,7 +12,7 @@ public class LibraryController {
     public LibraryController(View view, Storage storage) {
         this.view = view;
         this.commands = new Command[]{new Help(view), new Exit(view), new AddBook(view, storage),
-                new AddJournal(view, storage)};
+                new AddJournal(view, storage), new FindAll(view, storage)};
     }
 
 

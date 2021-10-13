@@ -22,5 +22,6 @@ public class Help implements Command {
         view.write("Enter exit to exit.");
         view.write("Enter addBook to add book to library");
         view.write("Enter addJournal to add journal to library");
+        view.write("Enter findAll to view all publications");
     }
 }
