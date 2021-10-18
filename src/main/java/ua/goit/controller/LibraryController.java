@@ -4,15 +4,24 @@ import ua.goit.controller.command.*;
 import ua.goit.repository.Storage;
 import ua.goit.view.View;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class LibraryController {
     private final View view;
-    private final Command[] commands;
+    private final List<Command> commands;
 
     public LibraryController(View view, Storage storage) {
         this.view = view;
-        this.commands = new Command[]{new Help(view), new Exit(view), new AddBook(view, storage),
-                new AddJournal(view, storage), new FindAll(view, storage)};
+        this.commands = new ArrayList<>(Arrays.asList(new Help(view),
+                new Exit(view),
+                new AddBook(view, storage),
+                new AddJournal(view, storage),
+                new FindAll(view, storage)
+        ));
+
     }
 
 

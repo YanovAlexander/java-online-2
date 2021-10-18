@@ -4,17 +4,17 @@ import ua.goit.model.Publication;
 
 import java.util.Arrays;
 
-public class InMemoryStorage implements Storage {
+public class InMemoryArrayStorage implements Storage {
     private Publication[] publications;
     private final static int DEFAULT_SIZE = 16;
     private int cursor = 0;
     private final static double LOAD_FACTOR = 3 / 2 + 1;
 
-    public InMemoryStorage() {
+    public InMemoryArrayStorage() {
         this.publications = new Publication[DEFAULT_SIZE];
     }
 
-    public InMemoryStorage(int size) {
+    public InMemoryArrayStorage(int size) {
         this.publications = new Publication[size];
     }
 
