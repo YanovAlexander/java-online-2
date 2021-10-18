@@ -2,9 +2,10 @@ package ua.goit.controller.command;
 
 import ua.goit.view.View;
 
+import static ua.goit.controller.command.Commands.EXIT;
+
 public class Exit implements Command {
     private final View view;
-    private static final String COMMAND_NAME = "exit";
 
     public Exit(View view) {
         this.view = view;
@@ -12,7 +13,7 @@ public class Exit implements Command {
 
     @Override
     public boolean canProcess(String input) {
-        return input.equals(COMMAND_NAME);
+        return input.equals(EXIT.getName());
     }
 
     @Override

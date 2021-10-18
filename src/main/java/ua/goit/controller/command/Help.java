@@ -2,9 +2,10 @@ package ua.goit.controller.command;
 
 import ua.goit.view.View;
 
+import static ua.goit.controller.command.Commands.*;
+
 public class Help implements Command {
     private final View view;
-    private final static String COMMAND_NAME = "help";
 
     public Help(View view) {
         this.view = view;
@@ -13,15 +14,15 @@ public class Help implements Command {
 
     @Override
     public boolean canProcess(String input) {
-        return input.equals(COMMAND_NAME);
+        return input.equals(HELP.getName());
     }
 
     @Override
     public void process() {
-        view.write("Enter help to see available commands.");
-        view.write("Enter exit to exit.");
-        view.write("Enter addBook to add book to library");
-        view.write("Enter addJournal to add journal to library");
-        view.write("Enter findAll to view all publications");
+        view.write("Enter " + HELP.getName() + " to see available commands.");
+        view.write("Enter " + EXIT.getName() + " to exit.");
+        view.write("Enter " + ADD_BOOK.getName()  + " to add book to library");
+        view.write("Enter " + ADD_JOURNAL.getName() + " to add journal to library");
+        view.write("Enter " + FIND_ALL.getName() + " to view all publications");
     }
 }

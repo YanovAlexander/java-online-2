@@ -4,10 +4,11 @@ import ua.goit.model.Book;
 import ua.goit.repository.Storage;
 import ua.goit.view.View;
 
+import static ua.goit.controller.command.Commands.ADD_BOOK;
+
 public class AddBook implements Command {
     private final View view;
     private final Storage storage;
-    private final static String COMMAND_NAME = "addBook";
 
     public AddBook(View view, Storage storage) {
         this.view = view;
@@ -16,7 +17,7 @@ public class AddBook implements Command {
 
     @Override
     public boolean canProcess(String input) {
-        return input.equals(COMMAND_NAME);
+        return input.equals(ADD_BOOK.getName());
     }
 
     @Override

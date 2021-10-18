@@ -4,10 +4,11 @@ import ua.goit.model.Journal;
 import ua.goit.repository.Storage;
 import ua.goit.view.View;
 
+import static ua.goit.controller.command.Commands.ADD_JOURNAL;
+
 public class AddJournal implements Command {
     private final View view;
     private final Storage storage;
-    private static final String COMMAND_NAME = "addJournal";
 
     public AddJournal(View view, Storage storage) {
         this.view = view;
@@ -16,7 +17,7 @@ public class AddJournal implements Command {
 
     @Override
     public boolean canProcess(String input) {
-        return input.equals(COMMAND_NAME);
+        return input.equals(ADD_JOURNAL.getName());
     }
 
     @Override
