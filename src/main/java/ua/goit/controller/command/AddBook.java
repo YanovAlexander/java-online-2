@@ -1,5 +1,6 @@
 package ua.goit.controller.command;
 
+import ua.goit.model.Author;
 import ua.goit.model.Book;
 import ua.goit.repository.Storage;
 import ua.goit.view.View;
@@ -34,9 +35,14 @@ public class AddBook implements Command {
                 view.write("Please, enter correct number:");
             }
         }
-        view.write("Enter author name:");
+        view.write("Enter author first name:");
         String authorName = view.read();
-        Book book = new Book(bookName, countPages, authorName);
+        view.write("Enter author last name:");
+        String authorLastName = view.read();
+        view.write("Enter author email:");
+        String authorEmail = view.read();
+
+        Book book = new Book(bookName, countPages, new Author(authorName, authorLastName, authorEmail));
         storage.add(book);
         view.write("Book created");
     }
