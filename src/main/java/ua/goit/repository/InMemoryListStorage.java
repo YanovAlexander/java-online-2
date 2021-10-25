@@ -5,7 +5,7 @@ import ua.goit.model.Publication;
 import java.util.LinkedList;
 import java.util.List;
 
-public class InMemoryListStorage implements Storage {
+public class InMemoryListStorage implements PublicationStorage {
     private List<Publication> publications = new LinkedList<>();
 
     public InMemoryListStorage() {
@@ -17,8 +17,8 @@ public class InMemoryListStorage implements Storage {
     }
 
     @Override
-    public void remove(Publication publication) {
-        publications.remove(publication);
+    public Publication remove(Publication publication) {
+        return publications.remove(publication) ? publication : null;
     }
 
     @Override

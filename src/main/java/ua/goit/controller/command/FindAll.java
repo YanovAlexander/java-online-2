@@ -1,16 +1,16 @@
 package ua.goit.controller.command;
 
 import ua.goit.model.Publication;
-import ua.goit.repository.Storage;
+import ua.goit.repository.PublicationStorage;
 import ua.goit.view.View;
 
 import static ua.goit.controller.command.Commands.FIND_ALL;
 
 public class FindAll implements Command {
     private final View view;
-    private final Storage storage;
+    private final PublicationStorage storage;
 
-    public FindAll(View view, Storage storage) {
+    public FindAll(View view, PublicationStorage storage) {
         this.view = view;
         this.storage = storage;
     }

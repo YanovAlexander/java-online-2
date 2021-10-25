@@ -1,6 +1,7 @@
 package ua.goit.model;
 
 public class Author {
+    private long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -9,6 +10,19 @@ public class Author {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public Author(long id, String firstName, String lastName, String email) {
+        this(firstName, lastName, email);
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {

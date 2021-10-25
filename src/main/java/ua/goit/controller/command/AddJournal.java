@@ -1,16 +1,16 @@
 package ua.goit.controller.command;
 
 import ua.goit.model.Journal;
-import ua.goit.repository.Storage;
+import ua.goit.repository.PublicationStorage;
 import ua.goit.view.View;
 
 import static ua.goit.controller.command.Commands.ADD_JOURNAL;
 
 public class AddJournal implements Command {
     private final View view;
-    private final Storage storage;
+    private final PublicationStorage storage;
 
-    public AddJournal(View view, Storage storage) {
+    public AddJournal(View view, PublicationStorage storage) {
         this.view = view;
         this.storage = storage;
     }

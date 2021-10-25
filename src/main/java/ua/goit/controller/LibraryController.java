@@ -1,7 +1,7 @@
 package ua.goit.controller;
 
 import ua.goit.controller.command.*;
-import ua.goit.repository.Storage;
+import ua.goit.repository.PublicationStorage;
 import ua.goit.view.View;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class LibraryController {
     private final View view;
     private final List<Command> commands;
 
-    public LibraryController(View view, Storage storage) {
+    public LibraryController(View view, PublicationStorage storage) {
         this.view = view;
         this.commands = new ArrayList<>(Arrays.asList(new Help(view),
                 new Exit(view),

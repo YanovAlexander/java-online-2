@@ -4,7 +4,7 @@ import ua.goit.model.Publication;
 
 import java.util.Arrays;
 
-public class InMemoryArrayStorage implements Storage {
+public class InMemoryArrayStorage implements PublicationStorage {
     private Publication[] publications;
     private final static int DEFAULT_SIZE = 16;
     private int cursor = 0;
@@ -29,12 +29,15 @@ public class InMemoryArrayStorage implements Storage {
     }
 
     @Override
-    public void remove(Publication publication) {
+    public Publication remove(Publication publication) {
+        Publication removedPublication = null;
         for (int i = 0; i < publications.length; i++) {
             if (publications[i].equals(publication)) {
+                removedPublication = publications[i];
                 publications[i] = null;
             }
         }
+        return removedPublication;
     }
 
     @Override

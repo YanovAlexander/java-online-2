@@ -2,16 +2,16 @@ package ua.goit.controller.command;
 
 import ua.goit.model.Author;
 import ua.goit.model.Book;
-import ua.goit.repository.Storage;
+import ua.goit.repository.PublicationStorage;
 import ua.goit.view.View;
 
 import static ua.goit.controller.command.Commands.ADD_BOOK;
 
 public class AddBook implements Command {
     private final View view;
-    private final Storage storage;
+    private final PublicationStorage storage;
 
-    public AddBook(View view, Storage storage) {
+    public AddBook(View view, PublicationStorage storage) {
         this.view = view;
         this.storage = storage;
     }

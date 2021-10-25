@@ -2,10 +2,10 @@ package ua.goit.repository;
 
 import ua.goit.model.Publication;
 
-public interface Storage {
+public interface PublicationStorage {
     void add(Publication publication);
 
-    void remove(Publication publication);
+    Publication remove(Publication publication);
 
     Publication remove(int index);
 
