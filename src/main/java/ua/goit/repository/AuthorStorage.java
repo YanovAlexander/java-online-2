@@ -7,4 +7,5 @@ public interface AuthorStorage {
     Author remove(Author author);
     Author get(long id);
     void update(Author author);
+    Author get(String email);
 }

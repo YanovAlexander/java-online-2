@@ -12,6 +12,9 @@ public class InMemoryAuthorStorage implements AuthorStorage {
 
     @Override
     public void add(Author author) {
+        if (authors.stream().anyMatch(aut -> aut.getEmail().equals(author.getEmail()))){
+            throw new DuplicateEmailException("Email already exists.");
+        }
         ++sequence;
         author.setId(sequence);
         authors.add(author);
@@ -38,5 +41,13 @@ public class InMemoryAuthorStorage implements AuthorStorage {
         first.ifPresent(aut -> {authors.remove(aut);
             authors.add(author);
         });
+    }
+
+    @Override
+    public Author get(String email) {
+        return authors.stream()
+                .filter(aut -> aut.getEmail().equals(email))
+                .findFirst()
+                .orElse(null);
     }
 }
