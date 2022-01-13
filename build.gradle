@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+group 'ua.goit.java-online-2'
+version '1.0'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+
