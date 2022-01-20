@@ -1,5 +1,6 @@
 package ua.goit.controller.command;
 
+import ua.goit.exception.ExitException;
 import ua.goit.view.View;
 
 import static ua.goit.controller.command.Commands.EXIT;
@@ -18,7 +19,6 @@ public class Exit implements Command {
 
     @Override
     public void process() {
-        view.write("Good bye!");
-        System.exit(0);
+        throw new ExitException();
     }
 }

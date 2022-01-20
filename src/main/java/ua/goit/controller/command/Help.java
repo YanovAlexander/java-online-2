@@ -21,9 +21,9 @@ public class Help implements Command {
     public void process() {
         view.write("Enter " + HELP.getName() + " to see available commands.");
         view.write("Enter " + EXIT.getName() + " to exit.");
-        view.write("Enter " + ADD_BOOK.getName()  + " to add book to library");
-        view.write("Enter " + ADD_JOURNAL.getName() + " to add journal to library");
-        view.write("Enter " + ADD_AUTHOR.getName() + " to add author to library");
-        view.write("Enter " + FIND_ALL.getName() + " to view all publications");
+        view.write("Enter " + ADD_BOOK.getName()  + " to add book to library.");
+        view.write("Enter " + ADD_JOURNAL.getName() + " to add journal to library.");
+        view.write("Enter " + ADD_AUTHOR.getName() + " to add author to library.");
+        view.write("Enter " + FIND_ALL.getName() + " to view all publications.");
     }
 }

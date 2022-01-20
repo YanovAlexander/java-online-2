@@ -1,6 +1,7 @@
 package ua.goit.controller;
 
 import ua.goit.controller.command.*;
+import ua.goit.exception.ExitException;
 import ua.goit.repository.PublicationStorage;
 import ua.goit.repository.AuthorStorage;
 import ua.goit.view.View;
@@ -33,19 +34,23 @@ public class LibraryController {
     }
 
     private void executeCommand() {
-        while (true) {
-            view.write("Please, enter help to see available commands:");
-            String input = view.read();
-            boolean isIncorrectCommand = true;
-            for (Command command : commands) {
-                if (command.canProcess(input)) {
-                    command.process();
-                    isIncorrectCommand = false;
+        try {
+            while (true) {
+                view.write("Please, enter help to see available commands:");
+                String input = view.read();
+                boolean isIncorrectCommand = true;
+                for (Command command : commands) {
+                    if (command.canProcess(input)) {
+                        command.process();
+                        isIncorrectCommand = false;
+                    }
+                }
+                if (isIncorrectCommand) {
+                    view.write("Incorrect command. Please, try again.");
                 }
             }
-            if (isIncorrectCommand) {
-                view.write("Incorrect command. Please, try again.");
-            }
+        } catch (ExitException e) {
+         view.write("Good Bye!");
         }
     }
 }

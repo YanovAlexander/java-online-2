@@ -39,5 +39,6 @@ public class AddAuthor implements Command{
 
         Author author = new Author(firstName, lastName, email);
         storage.add(author);
+        view.write("Author added to library");
     }
 }

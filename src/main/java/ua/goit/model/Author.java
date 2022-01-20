@@ -1,5 +1,7 @@
 package ua.goit.model;
 
+import java.util.Objects;
+
 public class Author {
     private long id;
     private String firstName;
@@ -56,5 +58,18 @@ public class Author {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return id == author.id && firstName.equals(author.firstName) && lastName.equals(author.lastName) && email.equals(author.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email);
     }
 }
