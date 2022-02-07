@@ -2,8 +2,10 @@ package ua.goit.controller;
 
 import ua.goit.controller.command.*;
 import ua.goit.exception.ExitException;
+import ua.goit.model.Journal;
 import ua.goit.repository.PublicationStorage;
 import ua.goit.repository.AuthorStorage;
+import ua.goit.repository.Repository;
 import ua.goit.view.View;
 
 import java.util.ArrayList;
@@ -15,12 +17,12 @@ public class LibraryController {
     private final View view;
     private final List<Command> commands;
 
-    public LibraryController(View view, PublicationStorage storage, AuthorStorage authorStorage) {
+    public LibraryController(View view, PublicationStorage storage, AuthorStorage authorStorage, Repository<Journal> repository) {
         this.view = view;
         this.commands = new ArrayList<>(Arrays.asList(new Help(view),
                 new Exit(view),
                 new AddBook(view, storage),
-                new AddJournal(view, storage),
+                new AddJournal(view, repository),
                 new AddAuthor(view, authorStorage),
                 new FindAll(view, storage)
         ));

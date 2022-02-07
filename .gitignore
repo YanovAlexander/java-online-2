@@ -1,7 +1,8 @@
 .idea
+.iws
+.iml
+.ipr
 target
-.out
-*.iml
-*.iml
+.DS_STORE /src/main/resources/log
 build
 .gradle

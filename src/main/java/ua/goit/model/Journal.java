@@ -10,6 +10,22 @@ public class Journal extends Publication {
         this.publicationYear = publicationYear;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(int publicationYear) {
+        this.publicationYear = publicationYear;
+    }
+
     @Override
     public String toString() {
         return "Journal{" + super.toString() + ", number = " + this.number + ", year = " + this.publicationYear + "}";

@@ -2,17 +2,18 @@ package ua.goit.controller.command;
 
 import ua.goit.model.Journal;
 import ua.goit.repository.PublicationStorage;
+import ua.goit.repository.Repository;
 import ua.goit.view.View;
 
 import static ua.goit.controller.command.Commands.ADD_JOURNAL;
 
 public class AddJournal implements Command {
     private final View view;
-    private final PublicationStorage storage;
+    private final Repository<Journal> repository;
 
-    public AddJournal(View view, PublicationStorage storage) {
+    public AddJournal(View view, Repository<Journal> repository) {
         this.view = view;
-        this.storage = storage;
+        this.repository = repository;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class AddJournal implements Command {
             }
         }
         Journal journal = new Journal(journalName, countPages, number, publicationYear);
-        storage.add(journal);
+        repository.save(journal);
         view.write("Journal created");
     }
 }
