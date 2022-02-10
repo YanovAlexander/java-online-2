@@ -1,13 +1,13 @@
 package ua.goit.repository;
 
 import ua.goit.config.DatabaseManager;
-import ua.goit.model.Journal;
+import ua.goit.model.dao.JournalDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class JournalRepository implements Repository<Journal>{
+public class JournalRepository implements Repository<JournalDao>{
     private final DatabaseManager manager;
     private static final String INSERT =  "INSERT INTO journal (name, count_pages, number, publication_year) VALUES (?, ?, ?, ?)";
 
@@ -16,7 +16,7 @@ public class JournalRepository implements Repository<Journal>{
     }
 
     @Override
-    public void save(Journal journal) {
+    public void save(JournalDao journal) {
         try (Connection connection = manager.getConnection();
           PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
             preparedStatement.setString(1, journal.getName());

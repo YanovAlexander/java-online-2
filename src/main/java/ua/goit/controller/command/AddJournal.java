@@ -1,19 +1,19 @@
 package ua.goit.controller.command;
 
-import ua.goit.model.Journal;
-import ua.goit.repository.PublicationStorage;
+import ua.goit.model.dto.JournalDto;
 import ua.goit.repository.Repository;
+import ua.goit.service.JournalService;
 import ua.goit.view.View;
 
 import static ua.goit.controller.command.Commands.ADD_JOURNAL;
 
 public class AddJournal implements Command {
     private final View view;
-    private final Repository<Journal> repository;
+    private final JournalService service;
 
-    public AddJournal(View view, Repository<Journal> repository) {
+    public AddJournal(View view, JournalService service) {
         this.view = view;
-        this.repository = repository;
+        this.service = service;
     }
 
     @Override
@@ -55,8 +55,8 @@ public class AddJournal implements Command {
                 view.write("Please, enter correct number:");
             }
         }
-        Journal journal = new Journal(journalName, countPages, number, publicationYear);
-        repository.save(journal);
+        JournalDto journal = new JournalDto(null, journalName, countPages, number, publicationYear);
+        service.save(journal);
         view.write("Journal created");
     }
 }
