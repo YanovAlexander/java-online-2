@@ -1,22 +1,25 @@
-package ua.goit.model;
+package ua.goit.model.dao;
 
 import java.util.Objects;
 
-public class Author {
+public class AuthorDao {
     private long id;
     private String firstName;
     private String lastName;
     private String email;
 
-    public Author(String firstName, String lastName, String email) {
+    public AuthorDao(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    public Author(long id, String firstName, String lastName, String email) {
+    public AuthorDao(long id, String firstName, String lastName, String email) {
         this(firstName, lastName, email);
         this.id = id;
+    }
+
+    public AuthorDao() {
     }
 
     public long getId() {
@@ -64,12 +67,12 @@ public class Author {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Author author = (Author) o;
-        return id == author.id && firstName.equals(author.firstName) && lastName.equals(author.lastName) && email.equals(author.email);
+        AuthorDao authorDao = (AuthorDao) o;
+        return id == authorDao.id && Objects.equals(firstName, authorDao.firstName) && Objects.equals(lastName, authorDao.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email);
+        return Objects.hash(id, firstName, lastName);
     }
 }

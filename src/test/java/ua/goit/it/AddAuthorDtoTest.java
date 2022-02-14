@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class AddAuthorTest {
+class AddAuthorDtoTest {
 
     private ConfigurableInputStream is;
     private ByteArrayOutputStream os;

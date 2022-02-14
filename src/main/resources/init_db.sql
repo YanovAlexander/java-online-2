@@ -21,3 +21,6 @@ CREATE TABLE journal(
     number INT,
     publication_year INT
 );
+
+ALTER TABLE author
+ADD UNIQUE (email);

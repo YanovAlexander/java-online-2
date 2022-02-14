@@ -1,9 +1,11 @@
 package ua.goit.model;
 
-public class Book extends Publication {
-    private Author author;
+import ua.goit.model.dto.AuthorDto;
 
-    public Book(String name, int countPages, Author author) {
+public class Book extends Publication {
+    private AuthorDto author;
+
+    public Book(String name, int countPages, AuthorDto author) {
         super(name, countPages);
         this.author = author;
     }

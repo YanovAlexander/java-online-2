@@ -1,18 +1,18 @@
 package ua.goit.controller.command;
 
-import ua.goit.model.Author;
-import ua.goit.repository.AuthorStorage;
+import ua.goit.model.dto.AuthorDto;
+import ua.goit.service.AuthorService;
 import ua.goit.view.View;
 
 import static ua.goit.controller.command.Commands.ADD_AUTHOR;
 
 public class AddAuthor implements Command{
     private final View view;
-    private final AuthorStorage storage;
+    private final AuthorService service;
 
-    public AddAuthor(View view, AuthorStorage storage) {
+    public AddAuthor(View view, AuthorService service) {
         this.view = view;
-        this.storage = storage;
+        this.service = service;
 
     }
 
@@ -31,14 +31,14 @@ public class AddAuthor implements Command{
         while(true) {
             view.write("Enter author email:");
             email = view.read();
-            if(storage.get(email) == null) {
+            if(!service.isAuthorExistByEmail(email)) {
                 break;
             }
             view.write("Email already exists.");
         }
 
-        Author author = new Author(firstName, lastName, email);
-        storage.add(author);
+        AuthorDto author = new AuthorDto(firstName, lastName, email);
+        service.save(author);
         view.write("Author added to library");
     }
 }

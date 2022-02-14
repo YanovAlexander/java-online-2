@@ -14,6 +14,6 @@ public class JournalService {
     }
 
     public void save(JournalDto dto) {
-        repository.save(converter.convert(dto));
+        repository.save(converter.from(dto));
     }
 }

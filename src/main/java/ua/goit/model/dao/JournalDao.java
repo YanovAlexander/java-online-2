@@ -7,7 +7,7 @@ public class JournalDao {
     private Integer countPages;
     private Integer publicationYear;
 
-    public JournalDao(Integer id, String name, Integer number, Integer countPages, Integer publicationYear) {
+    public JournalDao(Integer id, String name, Integer countPages, Integer number, Integer publicationYear) {
         this.id = id;
         this.name = name;
         this.number = number;

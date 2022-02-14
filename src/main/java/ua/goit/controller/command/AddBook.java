@@ -1,7 +1,7 @@
 package ua.goit.controller.command;
 
-import ua.goit.model.Author;
 import ua.goit.model.Book;
+import ua.goit.model.dto.AuthorDto;
 import ua.goit.repository.PublicationStorage;
 import ua.goit.view.View;
 
@@ -42,7 +42,7 @@ public class AddBook implements Command {
         view.write("Enter author email:");
         String authorEmail = view.read();
 
-        Book book = new Book(bookName, countPages, new Author(authorName, authorLastName, authorEmail));
+        Book book = new Book(bookName, countPages, new AuthorDto(authorName, authorLastName, authorEmail));
         storage.add(book);
         view.write("Book created");
     }
