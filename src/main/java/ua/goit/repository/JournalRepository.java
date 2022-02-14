@@ -28,6 +28,5 @@ public class JournalRepository implements Repository<JournalDao>{
             catch (SQLException e) {
             e.printStackTrace();
             }
-
     }
 }

@@ -1,15 +1,14 @@
 package ua.goit.service;
 
 import ua.goit.model.converter.JournalConverter;
-import ua.goit.model.dao.JournalDao;
 import ua.goit.model.dto.JournalDto;
-import ua.goit.repository.Repository;
+import ua.goit.repository.JournalRepository;
 
 public class JournalService {
-    private Repository<JournalDao> repository;
+    private JournalRepository repository;
     private JournalConverter converter;
 
-    public JournalService(Repository<JournalDao> repository, JournalConverter converter) {
+    public JournalService(JournalRepository repository, JournalConverter converter) {
         this.repository = repository;
         this.converter = converter;
     }
