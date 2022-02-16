@@ -1,32 +1,35 @@
 package ua.goit.model.dao;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class AuthorDao {
-    private long id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
+    private Set<BookDao> books;
 
-    public AuthorDao(String firstName, String lastName, String email) {
+    public AuthorDao(String firstName, String lastName, String email, Set<BookDao> books) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.books = books;
     }
 
-    public AuthorDao(long id, String firstName, String lastName, String email) {
-        this(firstName, lastName, email);
+    public AuthorDao(Integer id, String firstName, String lastName, String email, Set<BookDao> books) {
+        this(firstName, lastName, email, books);
         this.id = id;
     }
 
     public AuthorDao() {
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -74,5 +77,13 @@ public class AuthorDao {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName);
+    }
+
+    public Set<BookDao> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<BookDao> books) {
+        this.books = books;
     }
 }

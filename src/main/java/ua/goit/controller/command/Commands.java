@@ -6,7 +6,8 @@ public enum Commands {
     ADD_AUTHOR("addAuthor"),
     EXIT("exit"),
     FIND_ALL("findAll"),
-    HELP("help");
+    HELP("help"),
+    ADD_AUTHOR_TO_BOOK("addAuthorToBook");
 
     private String name;
 

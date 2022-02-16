@@ -31,8 +31,7 @@ public class Application {
         AuthorService authorService = new AuthorService(authorRepository, authorConverter);
 
         View view = new Console();
-        PublicationStorage storage = new InMemoryListStorage();
-        LibraryController controller = new LibraryController(view, storage, authorService, journalService);
+        LibraryController controller = new LibraryController(view, authorService, journalService);
         controller.run();
     }
 }

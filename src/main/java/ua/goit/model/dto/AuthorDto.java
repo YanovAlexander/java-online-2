@@ -1,32 +1,36 @@
 package ua.goit.model.dto;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class AuthorDto {
-    private long id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
+    private Set<BookDto> books;
 
-    public AuthorDto(String firstName, String lastName, String email) {
+    public AuthorDto(String firstName, String lastName, String email, Set<BookDto> books) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.books = books;
     }
 
-    public AuthorDto(long id, String firstName, String lastName, String email) {
-        this(firstName, lastName, email);
+    public AuthorDto(Integer id, String firstName, String lastName, String email, Set<BookDto> books) {
+        this(firstName, lastName, email, books);
         this.id = id;
+
     }
 
     public AuthorDto() {
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -52,6 +56,14 @@ public class AuthorDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<BookDto> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<BookDto> books) {
+        this.books = books;
     }
 
     @Override

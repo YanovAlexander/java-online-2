@@ -24,3 +24,15 @@ CREATE TABLE journal(
 
 ALTER TABLE author
 ADD UNIQUE (email);
+
+ALTER TABLE book DROP COLUMN author_id;
+
+CREATE TABLE book_author(
+    book_author_id SERIAL PRIMARY KEY,
+    book_id BIGINT REFERENCES book(id),
+    author_id BIGINT REFERENCES author(id),
+    UNIQUE (book_id, author_id)
+);
+
+ALTER TABLE book
+ADD UNIQUE (name);

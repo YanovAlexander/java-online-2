@@ -37,7 +37,7 @@ public class AddAuthor implements Command{
             view.write("Email already exists.");
         }
 
-        AuthorDto author = new AuthorDto(firstName, lastName, email);
+        AuthorDto author = new AuthorDto(firstName, lastName, email, null);
         service.save(author);
         view.write("Author added to library");
     }
