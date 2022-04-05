@@ -15,21 +15,10 @@ public class AuthorRepository implements Repository<AuthorDao>{
     private static final String INSERT = "INSERT INTO author (first_name, last_name, email) VALUES (?, ?, ?);";
     private static final String FIND_BY_ID = "SELECT * FROM author WHERE author.id = ?;";
     private static final String FIND_BY_EMAIL = "SELECT * FROM author WHERE author.email = ?;";
+    private static final String SELECT_BY_ID = "SELECT id, first_name, last_name, email FROM author WHERE id=?;";
 
     public AuthorRepository(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
-    }
-
-    public Optional<AuthorDao> findByID(Integer id) {
-        try (Connection connection = databaseManager.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return mapToAuthorDao(resultSet);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return Optional.empty();
     }
 
     public Optional<AuthorDao> findByEmail(String email) {
@@ -56,6 +45,24 @@ public class AuthorRepository implements Repository<AuthorDao>{
         catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    @Override
+    public AuthorDao findByName(String name) {
+        return null;
+    }
+
+    @Override
+    public Optional<AuthorDao> findById(int id) {
+        try (Connection connection = databaseManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return mapToAuthorDao(resultSet);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return Optional.empty();
     }
 
     private Optional<AuthorDao> mapToAuthorDao(ResultSet resultSet) throws SQLException {

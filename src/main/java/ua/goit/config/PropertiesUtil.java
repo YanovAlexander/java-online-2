@@ -34,7 +34,7 @@ public class PropertiesUtil {
 
     private void load() {
         this.properties = new Properties();
-        try(InputStream is = ClassLoader.getSystemResourceAsStream("application.properties")) {
+        try(InputStream is = getClass().getResourceAsStream("application.properties")) {
             properties.load(is);
         } catch (IOException e) {
             e.printStackTrace();

@@ -6,6 +6,7 @@ import ua.goit.model.dao.JournalDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class JournalRepository implements Repository<JournalDao>{
     private final DatabaseManager manager;
@@ -28,5 +29,15 @@ public class JournalRepository implements Repository<JournalDao>{
             catch (SQLException e) {
             e.printStackTrace();
             }
+    }
+
+    @Override
+    public JournalDao findByName(String name) {
+        return null;
+    }
+
+    @Override
+    public Optional<JournalDao> findById(int id) {
+        return null;
     }
 }

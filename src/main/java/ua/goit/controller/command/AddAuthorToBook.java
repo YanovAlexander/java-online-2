@@ -45,7 +45,7 @@ public class AddAuthorToBook implements Command {
 
         while (!isBookExists) {
             String bookName = view.read();
-            book = bookService.findBookByName(bookName);
+//            book = bookService.findBookByName(bookName);
             if (book.isPresent()) {
                 isBookExists = true;
             } else {

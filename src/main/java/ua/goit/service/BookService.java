@@ -27,8 +27,8 @@ public class BookService {
         bookRepository.addAuthorToBook(bookConverter.to(book), authorConverter.to(dto));
     }
 
-    public Optional<BookDto> findBookByName(String name) {
-        return null;
+    public BookDto findBookByName(String name) {
+        return bookConverter.from(bookRepository.findByName(name));
     }
 
 }

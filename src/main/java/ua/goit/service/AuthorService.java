@@ -17,7 +17,7 @@ public class AuthorService {
     }
 
     public AuthorDto findById(Integer id) {
-        return converter.from(authorRepository.findByID(id).orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id - %s does not exist", id))));
+        return converter.from(authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id - %s does not exist", id))));
     }
 
     public AuthorDto findByEmail(String email) {
