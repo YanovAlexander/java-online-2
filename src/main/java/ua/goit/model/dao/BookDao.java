@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class BookDao {
     private Integer id;
-    private Set<AuthorDao> author;
+    private Set<AuthorDao> authors;
     private String name;
     private int countPages;
 
@@ -12,18 +12,18 @@ public class BookDao {
         this.id = id;
         this.name = name;
         this.countPages = countPages;
-        this.author = author;
+        this.authors = author;
     }
 
     public BookDao() {
     }
 
     public Set<AuthorDao> getAuthors() {
-        return author;
+        return authors;
     }
 
     public void setAuthors(Set<AuthorDao> author) {
-        this.author = author;
+        this.authors = author;
     }
 
     public String getName() {

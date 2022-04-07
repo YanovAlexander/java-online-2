@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
+import java.util.*;
 
 
 public class BookRepository implements Repository<BookDao>, BookRepositoryCustom {
@@ -16,6 +16,8 @@ public class BookRepository implements Repository<BookDao>, BookRepositoryCustom
     private static final String INSERT_BOOK_AUTHOR = "INSERT INTO book_author(book_id, author_id) VALUES(?, ?);";
 
     private static final String SELECT_BY_NAME = "SELECT id, name, count_pages FROM book WHERE name=?;";
+
+    private static final String SELECT_AUTHORS_BY_BOOK_ID = "SELECT a.id, a.first_name, a.last_name, a.email FROM book_author ba INNER JOIN author a ON a.id = ba.author_id WHERE ba.book_id = ?;";
 
     private final DatabaseManager manager;
 
@@ -54,6 +56,32 @@ public class BookRepository implements Repository<BookDao>, BookRepositoryCustom
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public Set<AuthorDao> findAuthorsByBookId(Integer id) {
+        try(Connection connection = manager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(SELECT_AUTHORS_BY_BOOK_ID)) {
+            ps.setLong(1, id);
+            ResultSet resultSet = ps.executeQuery();
+            return mapToAuthorDao(resultSet);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    private Set<AuthorDao> mapToAuthorDao(ResultSet rs) throws SQLException {
+        Set<AuthorDao> authors = new HashSet<>();
+        while (rs.next()) {
+            AuthorDao author = new AuthorDao();
+            author.setId(rs.getInt("id"));
+            author.setFirstName(rs.getString("first_name"));
+            author.setLastName(rs.getString("last_name"));
+            author.setEmail(rs.getString("email"));
+            authors.add(author);
+        }
+        return authors;
     }
 
     private BookDao mapToBookDao(ResultSet rs) throws SQLException {

@@ -13,34 +13,7 @@
     </head>
 
     <body>
-            <nav class="navbar navbar-inverse">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <a class="navbar-brand" href="/">GoIT Library</a>
-                </div>
-                <ul class="nav navbar-nav">
-                  <li class="active"><a href="/">Home</a></li>
-                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Books <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Find</a></li>
-                      <li><a href="#">Create</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Journals <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Find</a></li>
-                      <li><a href="#">Create</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Authors <span class="caret"></span></a>
-                   <ul class="dropdown-menu">
-                     <li><a href="/findBookForm">Find</a></li>
-                     <li><a href="#">Create</a></li>
-                   </ul>
-                  </li>
-                </ul>
-              </div>
-            </nav>
+         <c:import url="${contextPath}/WEB-INF/html/navibar.jsp"/>
 
             <form action="/findBook">
               <label for="bookName">Book name:</label><br>
@@ -53,6 +26,7 @@
                       <tr>
                           <td style="text-align: center">Book name</td>
                           <td style="text-align: center">Count pages</td>
+                          <td style="text-align: center">Author name</td>
                       </tr>
                       </thead>
                       <tbody>
@@ -62,6 +36,11 @@
                                   </td>
                                   <td>
                                       <c:out value="${book.countPages}"/>
+                                  </td>
+                                  <td>
+                                      <c:forEach items="${book.authors}" var="author">
+                                      <a href="/findAuthor?authorId=${author.id}"> <c:out value="${author.firstName}"/> <c:out value="${author.lastName}"/> </a>
+                                      </c:forEach>
                                   </td>
                               </tr>
                       </tbody>

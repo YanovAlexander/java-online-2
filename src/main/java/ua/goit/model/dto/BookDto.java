@@ -4,27 +4,27 @@ package ua.goit.model.dto;
 import java.util.Set;
 
 public class BookDto {
-    private Long id;
-    private Set<AuthorDto> author;
+    private Integer id;
+    private Set<AuthorDto> authors;
     private String name;
     private int countPages;
 
-    public BookDto(Long id, String name, int countPages, Set<AuthorDto> author) {
+    public BookDto(Integer id, String name, int countPages, Set<AuthorDto> author) {
         this.id = id;
         this.name = name;
         this.countPages = countPages;
-        this.author = author;
+        this.authors = author;
     }
 
     public BookDto() {
     }
 
     public Set<AuthorDto> getAuthors() {
-        return author;
+        return authors;
     }
 
     public void setAuthors(Set<AuthorDto> author) {
-        this.author = author;
+        this.authors = author;
     }
 
     public String getName() {
@@ -43,11 +43,11 @@ public class BookDto {
         this.countPages = countPages;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

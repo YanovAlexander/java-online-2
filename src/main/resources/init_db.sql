@@ -36,3 +36,9 @@ CREATE TABLE book_author(
 
 ALTER TABLE book
 ADD UNIQUE (name);
+
+ALTER TABLE book_author
+ALTER COLUMN book_id TYPE INT;
+
+ALTER TABLE book_author
+ALTER COLUMN author_id TYPE INT;

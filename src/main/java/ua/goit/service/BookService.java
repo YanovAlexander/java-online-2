@@ -6,7 +6,8 @@ import ua.goit.model.dto.AuthorDto;
 import ua.goit.model.dto.BookDto;
 import ua.goit.repository.BookRepository;
 
-import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BookService {
     private final BookRepository bookRepository;
@@ -28,7 +29,13 @@ public class BookService {
     }
 
     public BookDto findBookByName(String name) {
-        return bookConverter.from(bookRepository.findByName(name));
+        BookDto book = bookConverter.from(bookRepository.findByName(name));
+        Set<AuthorDto> authors = bookRepository.findAuthorsByBookId(book.getId())
+                .stream()
+                .map(authorConverter::from)
+                .collect(Collectors.toSet());
+        book.setAuthors(authors);
+        return book;
     }
 
 }

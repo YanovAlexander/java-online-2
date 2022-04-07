@@ -8,6 +8,7 @@ public class BookConverter implements Converter<BookDao, BookDto>{
     @Override
     public BookDto from(BookDao type) {
         BookDto dto = new BookDto();
+        dto.setId(type.getId());
         dto.setName(type.getName());
         dto.setCountPages(type.getCountPages());
         return dto;
@@ -16,6 +17,7 @@ public class BookConverter implements Converter<BookDao, BookDto>{
     @Override
     public BookDao to(BookDto type) {
         BookDao dao = new BookDao();
+        dao.setId(type.getId());
         dao.setName(type.getName());
         dao.setCountPages(type.getCountPages());
         return dao;

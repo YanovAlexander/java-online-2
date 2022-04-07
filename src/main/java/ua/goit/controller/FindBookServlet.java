@@ -33,6 +33,6 @@ public class FindBookServlet extends HttpServlet {
          String bookName = req.getParameter("bookName");
          BookDto book = service.findBookByName(bookName);
          req.setAttribute("book", book);
-        req.getRequestDispatcher("/html/findBook.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/html/findBook.jsp").forward(req, resp);
     }
 }
