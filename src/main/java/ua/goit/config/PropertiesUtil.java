@@ -1,5 +1,6 @@
 package ua.goit.config;
 
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -7,8 +8,8 @@ import java.util.Properties;
 public class PropertiesUtil {
     private Properties properties = null;
 
-    public PropertiesUtil() {
-        load();
+    public PropertiesUtil(ServletContext context) {
+        load(context);
     }
 
     public String getHostname(){
@@ -31,10 +32,14 @@ public class PropertiesUtil {
         return properties.getProperty("database.password");
     }
 
+    public String getJdbcDriver() {
+        return properties.getProperty("jdbc.driver");
+    }
 
-    private void load() {
+
+    private void load(ServletContext context) {
         this.properties = new Properties();
-        try(InputStream is = getClass().getResourceAsStream("application.properties")) {
+        try(InputStream is = context.getResourceAsStream("/WEB-INF/resources/application.properties")) {
             properties.load(is);
         } catch (IOException e) {
             e.printStackTrace();

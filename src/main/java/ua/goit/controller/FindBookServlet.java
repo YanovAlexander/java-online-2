@@ -18,17 +18,19 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/findBook")
 public class FindBookServlet extends HttpServlet {
-    private final BookService service;
+    private BookService service;
 
-    public FindBookServlet() {
-        DatabaseManager dbConnector = new PostgresHikariProvider("localhost", 5432, "goit_library",
-                "postgres", "12345");
+    @Override
+    public void init() {
+        PropertiesUtil properties = new PropertiesUtil(getServletContext());
+        DatabaseManager dbConnector = new PostgresHikariProvider(properties.getHostname(), properties.getPort(), properties.getSchema(),
+                properties.getUser(), properties.getPassword(), properties.getJdbcDriver());
         service = new BookService(new BookRepository(dbConnector), new BookConverter(), new AuthorConverter());
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-         String bookName = (String) req.getAttribute("bookName");
+         String bookName = req.getParameter("bookName");
          BookDto book = service.findBookByName(bookName);
          req.setAttribute("book", book);
         req.getRequestDispatcher("/html/findBook.jsp").forward(req, resp);

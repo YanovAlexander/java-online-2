@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ua.goit.Application;
 import ua.goit.config.ConfigurableInputStream;
 
 import java.io.ByteArrayOutputStream;
@@ -41,7 +40,7 @@ class AddAuthorDtoTest {
         is.add("exit");
 
         //when
-        Application.main(new String[0]);
+//        Application.main(new String[0]);
 
         //then
         assertEquals("Welcome to Library\n" +

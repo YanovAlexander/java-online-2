@@ -32,7 +32,7 @@ public class BookRepository implements Repository<BookDao>, BookRepositoryCustom
         try(Connection connection = manager.getConnection();
             PreparedStatement ps = connection.prepareStatement(SELECT_BY_NAME)) {
             ps.setString(1, name);
-            mapToBookDao(ps.executeQuery());
+           return mapToBookDao(ps.executeQuery());
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
