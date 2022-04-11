@@ -9,12 +9,14 @@
 
     <body>
          <c:import url="${contextPath}/WEB-INF/html/navibar.jsp"/>
-                  <table>
+              <div class="container">
+
+                  <table class="table table-hover">
                       <thead>
                       <tr>
-                          <td style="text-align: center">First name</td>
-                          <td style="text-align: center">Last name</td>
-                          <td style="text-align: center">Email</td>
+                          <td>First name</td>
+                          <td>Last name</td>
+                          <td>Email</td>
                       </tr>
                       </thead>
                       <tbody>
@@ -31,5 +33,6 @@
                               </tr>
                       </tbody>
                   </table>
+              </div>
     </body>
 </html>

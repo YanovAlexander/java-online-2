@@ -8,20 +8,22 @@
     </head>
 
     <body>
-         <c:import url="${contextPath}/WEB-INF/html/navibar.jsp"/>
-
+        <c:import url="${contextPath}/WEB-INF/html/navibar.jsp"/>
+        <div class="container">
             <form action="/findBook">
-              <label for="bookName">Book name:</label><br>
-              <input type="text" id="bookName" name="bookName"><br>
-              <input type="submit" value="Submit">
+                 <div class="form-group">
+                    <label for="bookName">Book name:</label><br>
+                    <input type="text" class="form-control" id="bookName" placeholder="Enter book name" name="bookName"><br>
+                 </div>
+                     <input type="submit" value="Submit">
             </form>
 
-                  <table>
+                  <table class="table table-hover">
                       <thead>
                       <tr>
-                          <td style="text-align: center">Book name</td>
-                          <td style="text-align: center">Count pages</td>
-                          <td style="text-align: center">Author name</td>
+                          <td>Book name</td>
+                          <td>Count pages</td>
+                          <td>Author name</td>
                       </tr>
                       </thead>
                       <tbody>
@@ -40,5 +42,6 @@
                               </tr>
                       </tbody>
                   </table>
+        </div>
     </body>
 </html>

@@ -9,11 +9,14 @@
 
     <body>
         <c:import url="${contextPath}/WEB-INF/html/navibar.jsp"/>
-
+        <div class="container">
             <form action="/findBook">
-              <label for="bookName">Book name:</label><br>
-              <input type="text" id="bookName" name="bookName"><br>
-              <input type="submit" value="Submit">
+                <div class="form-group">
+                    <label for="bookName">Book name:</label><br>
+                    <input type="text" class="form-control" id="bookName" placeholder="Enter book name" name="bookName"><br>
+                </div>
+                    <input type="submit" value="Submit">
             </form>
+        </div>
     </body>
 </html>
