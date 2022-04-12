@@ -8,7 +8,7 @@
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Books <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                       <li><a href="/findBookForm">Find</a></li>
-                      <li><a href="#">Create</a></li>
+                      <li><a href="/addBookForm">Create</a></li>
                     </ul>
                   </li>
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Journals <span class="caret"></span></a>

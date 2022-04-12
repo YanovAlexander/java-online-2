@@ -4,10 +4,11 @@ import java.sql.Connection;
 import ua.goit.config.DatabaseManager;
 import ua.goit.model.dao.AuthorDao;
 
-import javax.swing.text.html.Option;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class AuthorRepository implements Repository<AuthorDao>{
@@ -16,6 +17,7 @@ public class AuthorRepository implements Repository<AuthorDao>{
     private static final String FIND_BY_ID = "SELECT * FROM author WHERE author.id = ?;";
     private static final String FIND_BY_EMAIL = "SELECT * FROM author WHERE author.email = ?;";
     private static final String SELECT_BY_ID = "SELECT id, first_name, last_name, email FROM author WHERE id=?;";
+    private static  final String FIND_ALL = "SELECT id, first_name, last_name, email FROM author;";
 
     public AuthorRepository(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
@@ -34,17 +36,22 @@ public class AuthorRepository implements Repository<AuthorDao>{
     }
 
     @Override
-    public void save(AuthorDao authorDao) {
+    public Integer save(AuthorDao authorDao) {
         try ( Connection connection = databaseManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
             preparedStatement.setString(1, authorDao.getFirstName());
             preparedStatement.setString(2, authorDao.getLastName());
             preparedStatement.setString(3, authorDao.getEmail());
             preparedStatement.execute();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            }
         }
         catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return null;
     }
 
     @Override
@@ -65,6 +72,18 @@ public class AuthorRepository implements Repository<AuthorDao>{
         return Optional.empty();
     }
 
+    @Override
+    public List<AuthorDao> findAll() {
+        try (Connection connection = databaseManager.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return mapToAuthorDaos(resultSet);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
     private Optional<AuthorDao> mapToAuthorDao(ResultSet resultSet) throws SQLException {
         AuthorDao authorDao = null;
         while (resultSet.next()) {
@@ -75,5 +94,18 @@ public class AuthorRepository implements Repository<AuthorDao>{
             authorDao.setEmail(resultSet.getString("email"));
         }
         return Optional.ofNullable(authorDao);
+    }
+
+    private List<AuthorDao> mapToAuthorDaos(ResultSet resultSet) throws SQLException {
+        List<AuthorDao> authorDaos = new ArrayList<>();
+        while (resultSet.next()) {
+            AuthorDao authorDao = new AuthorDao();
+            authorDao.setId(resultSet.getInt("id"));
+            authorDao.setFirstName(resultSet.getString("first_name"));
+            authorDao.setLastName(resultSet.getString("last_name"));
+            authorDao.setEmail(resultSet.getString("email"));
+            authorDaos.add(authorDao);
+        }
+        return authorDaos;
     }
 }

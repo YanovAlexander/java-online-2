@@ -6,6 +6,9 @@ import ua.goit.model.converter.AuthorConverter;
 import ua.goit.model.dto.AuthorDto;
 import ua.goit.repository.AuthorRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class AuthorService {
     private AuthorRepository authorRepository;
     private AuthorConverter converter;
@@ -34,5 +37,11 @@ public class AuthorService {
         } else {
             throw new AuthorAlreadyExistException("This author is exist already");
         }
+    }
+
+    public List<AuthorDto> findAll() {
+        return authorRepository.findAll().stream()
+                .map(authorDao -> converter.from(authorDao))
+                .collect(Collectors.toList());
     }
 }

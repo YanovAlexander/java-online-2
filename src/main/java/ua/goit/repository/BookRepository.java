@@ -4,10 +4,7 @@ import ua.goit.config.DatabaseManager;
 import ua.goit.model.dao.AuthorDao;
 import ua.goit.model.dao.BookDao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 
@@ -19,6 +16,8 @@ public class BookRepository implements Repository<BookDao>, BookRepositoryCustom
 
     private static final String SELECT_AUTHORS_BY_BOOK_ID = "SELECT a.id, a.first_name, a.last_name, a.email FROM book_author ba INNER JOIN author a ON a.id = ba.author_id WHERE ba.book_id = ?;";
 
+    private static final String INSERT_BOOK = "INSERT INTO book (name, count_pages) VALUES(?, ?);";
+
     private final DatabaseManager manager;
 
     public BookRepository(DatabaseManager manager) {
@@ -26,7 +25,20 @@ public class BookRepository implements Repository<BookDao>, BookRepositoryCustom
     }
 
     @Override
-    public void save(BookDao bookDao) {
+    public Integer save(BookDao bookDao) {
+        try(Connection connection = manager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_BOOK, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, bookDao.getName());
+            preparedStatement.setInt(2, bookDao.getCountPages());
+            preparedStatement.execute();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -82,6 +94,11 @@ public class BookRepository implements Repository<BookDao>, BookRepositoryCustom
             authors.add(author);
         }
         return authors;
+    }
+
+    @Override
+    public List<BookDao> findAll() {
+        return new ArrayList<>();
     }
 
     private BookDao mapToBookDao(ResultSet rs) throws SQLException {
