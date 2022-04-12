@@ -20,8 +20,10 @@ public class BookService {
         this.authorConverter = authorConverter;
     }
 
-    public void save(BookDto book) {
-
+    public void save(BookDto book, AuthorDto author) {
+        Integer bookId = bookRepository.save(bookConverter.to(book));
+        book.setId(bookId);
+        addAuthorToBook(book, author);
     }
 
     public void addAuthorToBook(BookDto book, AuthorDto dto) {
@@ -37,5 +39,6 @@ public class BookService {
         book.setAuthors(authors);
         return book;
     }
+
 
 }
