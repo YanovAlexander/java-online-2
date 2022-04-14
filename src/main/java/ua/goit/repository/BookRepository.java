@@ -54,7 +54,7 @@ public class BookRepository implements Repository<BookDao>, BookRepositoryCustom
     }
 
     @Override
-    public Optional<BookDao> findById(int id) {
+    public Optional<BookDao> findById(Integer id) {
         return null;
     }
 
@@ -99,6 +99,11 @@ public class BookRepository implements Repository<BookDao>, BookRepositoryCustom
     @Override
     public List<BookDao> findAll() {
         return new ArrayList<>();
+    }
+
+    @Override
+    public List<BookDao> findByIds(Set<Integer> id) {
+        return null;
     }
 
     private BookDao mapToBookDao(ResultSet rs) throws SQLException {

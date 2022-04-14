@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class JournalRepository implements Repository<JournalDao>{
     private final DatabaseManager manager;
@@ -45,12 +46,17 @@ public class JournalRepository implements Repository<JournalDao>{
     }
 
     @Override
-    public Optional<JournalDao> findById(int id) {
+    public Optional<JournalDao> findById(Integer id) {
         return null;
     }
 
     @Override
     public List<JournalDao> findAll() {
         return new ArrayList<>();
+    }
+
+    @Override
+    public List<JournalDao> findByIds(Set<Integer> id) {
+        return null;
     }
 }

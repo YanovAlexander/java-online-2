@@ -1,13 +1,9 @@
 package ua.goit.controller;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import ua.goit.config.DatabaseManager;
 import ua.goit.config.PostgresHikariProvider;
 import ua.goit.config.PropertiesUtil;
+import ua.goit.model.ErrorMessage;
 import ua.goit.model.converter.AuthorConverter;
 import ua.goit.model.converter.BookConverter;
 import ua.goit.model.dto.AuthorDto;
@@ -16,15 +12,25 @@ import ua.goit.repository.AuthorRepository;
 import ua.goit.repository.BookRepository;
 import ua.goit.service.AuthorService;
 import ua.goit.service.BookService;
+import ua.goit.service.BookValidator;
 
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = "/addBook")
 public class AddBookServlet extends HttpServlet {
     private BookService bookService;
     private AuthorService authorService;
+    private BookValidator bookValidator;
 
     @Override
     public void init() {
@@ -33,19 +39,31 @@ public class AddBookServlet extends HttpServlet {
                 properties.getUser(), properties.getPassword(), properties.getJdbcDriver());
         bookService = new BookService(new BookRepository(dbConnector), new BookConverter(), new AuthorConverter());
         authorService = new AuthorService(new AuthorRepository(dbConnector), new AuthorConverter());
+        bookValidator = new BookValidator();
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ErrorMessage errorMessage = bookValidator.validateCreateBook(req);
+        if (!errorMessage.getErrors().isEmpty()) {
+            List<AuthorDto> authors = authorService.findAll();
+            req.setAttribute("authors", authors);
+            req.setAttribute("errorMessage", errorMessage);
+            req.getRequestDispatcher("/WEB-INF/html/addBookForm.jsp").forward(req, resp);
+            return;
+        }
+
         String bookName = req.getParameter("bookName");
         Integer countPages = Integer.parseInt(req.getParameter("countPages"));
-        Integer authorId = Integer.parseInt(req.getParameter("authorId"));
+        Set<Integer> authorIds = Arrays.stream(req.getParameterValues("authorId"))
+                .map(Integer::parseInt)
+                .collect(Collectors.toSet());
         BookDto bookDto = new BookDto();
         bookDto.setName(bookName);
         bookDto.setCountPages(countPages);
-        AuthorDto authorDto = authorService.findById(authorId);
-        bookDto.setAuthors(Set.of(authorDto));
-        bookService.save(bookDto, authorDto);
+        Set<AuthorDto> authorDtos = authorService.findByIds(authorIds);
+        bookDto.setAuthors(authorDtos);
+        bookService.save(bookDto);
         req.getRequestDispatcher("/WEB-INF/html/bookAdded.jsp").forward(req, resp);
     }
 }

@@ -10,14 +10,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AuthorRepository implements Repository<AuthorDao>{
     private final DatabaseManager databaseManager;
     private static final String INSERT = "INSERT INTO author (first_name, last_name, email) VALUES (?, ?, ?);";
-    private static final String FIND_BY_ID = "SELECT * FROM author WHERE author.id = ?;";
+    private static final String FIND_BY_ID = "SELECT id, first_name, last_name, email FROM author WHERE id=?;";
     private static final String FIND_BY_EMAIL = "SELECT * FROM author WHERE author.email = ?;";
-    private static final String SELECT_BY_ID = "SELECT id, first_name, last_name, email FROM author WHERE id=?;";
     private static  final String FIND_ALL = "SELECT id, first_name, last_name, email FROM author;";
+    private static final String FIND_BY_IDS = "SELECT id, first_name, last_name, email FROM author WHERE id IN (?);";
 
     public AuthorRepository(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
@@ -60,7 +62,7 @@ public class AuthorRepository implements Repository<AuthorDao>{
     }
 
     @Override
-    public Optional<AuthorDao> findById(int id) {
+    public Optional<AuthorDao> findById(Integer id) {
         try (Connection connection = databaseManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
             preparedStatement.setInt(1, id);
@@ -80,6 +82,20 @@ public class AuthorRepository implements Repository<AuthorDao>{
             return mapToAuthorDaos(resultSet);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<AuthorDao> findByIds(Set<Integer> id) {
+        String findByIds = prepareInClauseSQL(id, FIND_BY_IDS);
+
+        try (Connection connection = databaseManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(findByIds)){
+
+            return mapToAuthorDaos(preparedStatement.executeQuery());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         return new ArrayList<>();
     }
@@ -107,5 +123,14 @@ public class AuthorRepository implements Repository<AuthorDao>{
             authorDaos.add(authorDao);
         }
         return authorDaos;
+    }
+
+    private String prepareInClauseSQL(Set<Integer> id, String sql) {
+        String sqlIN = id.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(",", "(", ")"));
+        String findByIds = sql;
+        findByIds = findByIds.replace("(?)", sqlIN);
+        return findByIds;
     }
 }

@@ -7,6 +7,7 @@ import ua.goit.model.dto.AuthorDto;
 import ua.goit.repository.AuthorRepository;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AuthorService {
@@ -21,6 +22,13 @@ public class AuthorService {
 
     public AuthorDto findById(Integer id) {
         return converter.from(authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id - %s does not exist", id))));
+    }
+
+    public Set<AuthorDto> findByIds(Set<Integer> ids) {
+       return authorRepository.findByIds(ids)
+                .stream()
+                .map(author -> converter.from(author))
+                .collect(Collectors.toSet());
     }
 
     public AuthorDto findByEmail(String email) {

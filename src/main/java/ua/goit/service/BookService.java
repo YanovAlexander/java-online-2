@@ -20,10 +20,11 @@ public class BookService {
         this.authorConverter = authorConverter;
     }
 
-    public void save(BookDto book, AuthorDto author) {
+    public void save(BookDto book) {
         Integer bookId = bookRepository.save(bookConverter.to(book));
         book.setId(bookId);
-        addAuthorToBook(book, author);
+        book.getAuthors()
+                .forEach(author -> addAuthorToBook(book, author));
     }
 
     public void addAuthorToBook(BookDto book, AuthorDto dto) {
