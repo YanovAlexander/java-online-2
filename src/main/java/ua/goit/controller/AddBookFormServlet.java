@@ -1,8 +1,7 @@
 package ua.goit.controller;
 
 import ua.goit.config.DatabaseManager;
-import ua.goit.config.PostgresHikariProvider;
-import ua.goit.config.PropertiesUtil;
+import ua.goit.config.HibernateProvider;
 import ua.goit.model.converter.AuthorConverter;
 import ua.goit.model.dto.AuthorDto;
 import ua.goit.repository.AuthorRepository;
@@ -23,9 +22,7 @@ public class AddBookFormServlet extends HttpServlet {
 
     @Override
     public void init() {
-        PropertiesUtil properties = new PropertiesUtil(getServletContext());
-        DatabaseManager dbConnector = new PostgresHikariProvider(properties.getHostname(), properties.getPort(), properties.getSchema(),
-                properties.getUser(), properties.getPassword(), properties.getJdbcDriver());
+        DatabaseManager dbConnector = new HibernateProvider();
         service = new AuthorService(new AuthorRepository(dbConnector), new AuthorConverter());
     }
 

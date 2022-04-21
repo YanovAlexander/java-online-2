@@ -1,10 +1,11 @@
 package ua.goit.repository;
 
-import java.sql.Connection;
+
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
 import ua.goit.config.DatabaseManager;
 import ua.goit.model.dao.AuthorDao;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,12 +27,12 @@ public class AuthorRepository implements Repository<AuthorDao>{
     }
 
     public Optional<AuthorDao> findByEmail(String email) {
-        try (Connection connection = databaseManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_EMAIL)) {
-            preparedStatement.setString(1, email);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return mapToAuthorDao(resultSet);
-        } catch (SQLException throwables) {
+        try (Session session = databaseManager.getSession()) {
+            return session.createQuery("FROM AuthorDao ad WHERE ad.email=:email")
+                    .setParameter("email", email)
+                    .setResultListTransformer(Transformers.aliasToBean(AuthorDao.class))
+                    .uniqueResultOptional();
+        } catch (Exception throwables) {
             throwables.printStackTrace();
         }
         return Optional.empty();
@@ -39,65 +40,61 @@ public class AuthorRepository implements Repository<AuthorDao>{
 
     @Override
     public Integer save(AuthorDao authorDao) {
-        try ( Connection connection = databaseManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
-            preparedStatement.setString(1, authorDao.getFirstName());
-            preparedStatement.setString(2, authorDao.getLastName());
-            preparedStatement.setString(3, authorDao.getEmail());
-            preparedStatement.execute();
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                return generatedKeys.getInt(1);
-            }
-        }
-        catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+//        try (Session session = databaseManager.getSession()) {
+//
+//        }
+//        catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        return null;
         return null;
     }
 
     @Override
-    public AuthorDao findByName(String name) {
+    public List<AuthorDao> findByName(String name) {
         return null;
     }
 
     @Override
     public Optional<AuthorDao> findById(Integer id) {
-        try (Connection connection = databaseManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return mapToAuthorDao(resultSet);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return Optional.empty();
+//        try (Connection connection = databaseManager.getSession();
+//             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+//            preparedStatement.setInt(1, id);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            return mapToAuthorDao(resultSet);
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        return Optional.empty();
+        return null;
     }
 
     @Override
     public List<AuthorDao> findAll() {
-        try (Connection connection = databaseManager.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return mapToAuthorDaos(resultSet);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return new ArrayList<>();
+//        try (Connection connection = databaseManager.getSession();
+//             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            return mapToAuthorDaos(resultSet);
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        return new ArrayList<>();
+        return null;
     }
 
     @Override
     public List<AuthorDao> findByIds(Set<Integer> id) {
-        String findByIds = prepareInClauseSQL(id, FIND_BY_IDS);
-
-        try (Connection connection = databaseManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(findByIds)){
-
-            return mapToAuthorDaos(preparedStatement.executeQuery());
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return new ArrayList<>();
+//        String findByIds = prepareInClauseSQL(id, FIND_BY_IDS);
+//
+//        try (Connection connection = databaseManager.getSession();
+//             PreparedStatement preparedStatement = connection.prepareStatement(findByIds)){
+//
+//            return mapToAuthorDaos(preparedStatement.executeQuery());
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+//        return new ArrayList<>();
+        return null;
     }
 
     private Optional<AuthorDao> mapToAuthorDao(ResultSet resultSet) throws SQLException {

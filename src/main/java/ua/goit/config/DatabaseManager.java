@@ -1,9 +1,8 @@
 package ua.goit.config;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import org.hibernate.Session;
 
 public interface DatabaseManager {
 
-    Connection getConnection() throws SQLException;
+    Session getSession();
 }

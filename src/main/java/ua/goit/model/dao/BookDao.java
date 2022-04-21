@@ -6,9 +6,9 @@ public class BookDao {
     private Integer id;
     private Set<AuthorDao> authors;
     private String name;
-    private int countPages;
+    private Integer countPages;
 
-    public BookDao(Integer id, String name, int countPages, Set<AuthorDao> author) {
+    public BookDao(Integer id, String name, Integer countPages, Set<AuthorDao> author) {
         this.id = id;
         this.name = name;
         this.countPages = countPages;
@@ -34,11 +34,11 @@ public class BookDao {
         this.name = name;
     }
 
-    public int getCountPages() {
+    public Integer getCountPages() {
         return countPages;
     }
 
-    public void setCountPages(int countPages) {
+    public void setCountPages(Integer countPages) {
         this.countPages = countPages;
     }
 

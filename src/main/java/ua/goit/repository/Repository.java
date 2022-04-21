@@ -8,7 +8,7 @@ public interface Repository<T> {
 
     Integer save(T t);
 
-    T findByName(String name);
+    List<T> findByName(String name);
 
     Optional<T> findById(Integer id);
 

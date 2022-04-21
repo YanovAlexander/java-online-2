@@ -22,26 +22,26 @@ public class JournalRepository implements Repository<JournalDao>{
 
     @Override
     public Integer save(JournalDao journal) {
-        try (Connection connection = manager.getConnection();
-          PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
-            preparedStatement.setString(1, journal.getName());
-            preparedStatement.setInt(2, journal.getCountPages());
-            preparedStatement.setInt(3, journal.getNumber());
-            preparedStatement.setInt(4, journal.getPublicationYear());
-            preparedStatement.execute();
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                return generatedKeys.getInt(1);
-            }
-        }
-            catch (SQLException e) {
-            e.printStackTrace();
-            }
+//        try (Connection connection = manager.getSession();
+//             PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
+//            preparedStatement.setString(1, journal.getName());
+//            preparedStatement.setInt(2, journal.getCountPages());
+//            preparedStatement.setInt(3, journal.getNumber());
+//            preparedStatement.setInt(4, journal.getPublicationYear());
+//            preparedStatement.execute();
+//            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+//            if (generatedKeys.next()) {
+//                return generatedKeys.getInt(1);
+//            }
+//        }
+//            catch (SQLException e) {
+//            e.printStackTrace();
+//            }
         return null;
     }
 
     @Override
-    public JournalDao findByName(String name) {
+    public List<JournalDao> findByName(String name) {
         return null;
     }
 

@@ -1,8 +1,7 @@
 package ua.goit.controller;
 
 import ua.goit.config.DatabaseManager;
-import ua.goit.config.PostgresHikariProvider;
-import ua.goit.config.PropertiesUtil;
+import ua.goit.config.HibernateProvider;
 import ua.goit.exception.AuthorNotFoundException;
 import ua.goit.model.converter.AuthorConverter;
 import ua.goit.model.dto.AuthorDto;
@@ -22,9 +21,7 @@ public class FindAuthorServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        PropertiesUtil properties = new PropertiesUtil(getServletContext());
-        DatabaseManager dbConnector = new PostgresHikariProvider(properties.getHostname(), properties.getPort(), properties.getSchema(),
-                properties.getUser(), properties.getPassword(), properties.getJdbcDriver());
+        DatabaseManager dbConnector = new HibernateProvider();
         AuthorRepository authorRepository = new AuthorRepository(dbConnector);
         authorService = new AuthorService(authorRepository, new AuthorConverter());
     }

@@ -2,11 +2,12 @@ package ua.goit.service;
 
 import ua.goit.model.converter.AuthorConverter;
 import ua.goit.model.converter.BookConverter;
+import ua.goit.model.dao.BookDao;
 import ua.goit.model.dto.AuthorDto;
 import ua.goit.model.dto.BookDto;
 import ua.goit.repository.BookRepository;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class BookService {
@@ -31,15 +32,10 @@ public class BookService {
         bookRepository.addAuthorToBook(bookConverter.to(book), authorConverter.to(dto));
     }
 
-    public BookDto findBookByName(String name) {
-        BookDto book = bookConverter.from(bookRepository.findByName(name));
-        Set<AuthorDto> authors = bookRepository.findAuthorsByBookId(book.getId())
-                .stream()
-                .map(authorConverter::from)
-                .collect(Collectors.toSet());
-        book.setAuthors(authors);
-        return book;
+    public List<BookDto> findBookByName(String name) {
+        List<BookDao> bookDaos = bookRepository.findByName(name);
+        return bookDaos.stream()
+                .map(bookConverter::from)
+                .collect(Collectors.toList());
     }
-
-
 }
