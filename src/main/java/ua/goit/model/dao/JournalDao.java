@@ -1,5 +1,10 @@
 package ua.goit.model.dao;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class JournalDao {
     private Integer id;
     private String name;
@@ -15,6 +20,7 @@ public class JournalDao {
         this.publicationYear = publicationYear;
     }
 
+    @Column(name = "number")
     public Integer getNumber() {
         return number;
     }
@@ -26,6 +32,8 @@ public class JournalDao {
     public JournalDao() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -34,6 +42,7 @@ public class JournalDao {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -42,6 +51,7 @@ public class JournalDao {
         this.name = name;
     }
 
+    @Column(name = "count_pages")
     public Integer getCountPages() {
         return countPages;
     }
@@ -50,6 +60,7 @@ public class JournalDao {
         this.countPages = countPages;
     }
 
+    @Column(name = "publication_year")
     public Integer getPublicationYear() {
         return publicationYear;
     }

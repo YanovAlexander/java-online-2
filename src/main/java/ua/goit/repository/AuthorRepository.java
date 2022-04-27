@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 import ua.goit.config.DatabaseManager;
 import ua.goit.model.dao.AuthorDao;
+import ua.goit.model.dao.BookDao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,29 +72,24 @@ public class AuthorRepository implements Repository<AuthorDao>{
 
     @Override
     public List<AuthorDao> findAll() {
-//        try (Connection connection = databaseManager.getSession();
-//             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            return mapToAuthorDaos(resultSet);
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//        return new ArrayList<>();
+        try (Session session = databaseManager.getSession()){
+            return session.createQuery("FROM AuthorDao").list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public List<AuthorDao> findByIds(Set<Integer> id) {
-//        String findByIds = prepareInClauseSQL(id, FIND_BY_IDS);
-//
-//        try (Connection connection = databaseManager.getSession();
-//             PreparedStatement preparedStatement = connection.prepareStatement(findByIds)){
-//
-//            return mapToAuthorDaos(preparedStatement.executeQuery());
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//        return new ArrayList<>();
+        try (Session session = databaseManager.getSession()){
+            return session.createQuery("FROM AuthorDao ad WHERE ad.id IN :ids")
+                    .setParameter("ids", id)
+                    .list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         return null;
     }
 

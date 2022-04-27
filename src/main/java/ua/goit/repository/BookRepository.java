@@ -1,6 +1,7 @@
 package ua.goit.repository;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 import ua.goit.config.DatabaseManager;
 import ua.goit.model.dao.AuthorDao;
@@ -28,18 +29,17 @@ public class BookRepository implements Repository<BookDao>, BookRepositoryCustom
 
     @Override
     public Integer save(BookDao bookDao) {
-//        try(Connection connection = manager.getSession();
-//            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_BOOK, Statement.RETURN_GENERATED_KEYS)) {
-//            preparedStatement.setString(1, bookDao.getName());
-//            preparedStatement.setInt(2, bookDao.getCountPages());
-//            preparedStatement.execute();
-//            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-//            if (generatedKeys.next()) {
-//                return generatedKeys.getInt(1);
-//            }
-//        } catch (SQLException exception) {
-//            exception.printStackTrace();
-//        }
+        Transaction transaction = null;
+        try (Session session = manager.getSession()){
+            transaction = session.beginTransaction();
+            session.persist(bookDao);
+            transaction.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
         return null;
     }
 

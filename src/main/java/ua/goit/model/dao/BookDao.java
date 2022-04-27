@@ -1,7 +1,11 @@
 package ua.goit.model.dao;
 
+import jakarta.persistence.*;
+
 import java.util.Set;
 
+@Entity
+@Table(name="book")
 public class BookDao {
     private Integer id;
     private Set<AuthorDao> authors;
@@ -18,6 +22,12 @@ public class BookDao {
     public BookDao() {
     }
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinTable(
+            name = "book_author",
+            joinColumns = { @JoinColumn(name = "book_id") },
+            inverseJoinColumns = { @JoinColumn(name = "author_id") }
+    )
     public Set<AuthorDao> getAuthors() {
         return authors;
     }
@@ -26,6 +36,7 @@ public class BookDao {
         this.authors = author;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -34,6 +45,7 @@ public class BookDao {
         this.name = name;
     }
 
+    @Column(name = "count_pages")
     public Integer getCountPages() {
         return countPages;
     }
@@ -42,6 +54,8 @@ public class BookDao {
         this.countPages = countPages;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
