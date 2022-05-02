@@ -7,6 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "author")
+@javax.persistence.Cacheable
 public class AuthorDao {
     private Integer id;
     private String firstName;

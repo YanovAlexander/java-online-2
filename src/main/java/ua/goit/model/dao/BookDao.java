@@ -6,6 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="book")
+@javax.persistence.Cacheable
 public class BookDao {
     private Integer id;
     private Set<AuthorDao> authors;
