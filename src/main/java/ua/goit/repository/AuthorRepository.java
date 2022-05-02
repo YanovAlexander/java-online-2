@@ -58,16 +58,14 @@ public class AuthorRepository implements Repository<AuthorDao>{
 
     @Override
     public Optional<AuthorDao> findById(Integer id) {
-//        try (Connection connection = databaseManager.getSession();
-//             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
-//            preparedStatement.setInt(1, id);
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            return mapToAuthorDao(resultSet);
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//        return Optional.empty();
-        return null;
+        try(Session session = databaseManager.getSession()) {
+           return session.createQuery("FROM AuthorDao ad WHERE ad.id=:id")
+                    .setParameter("id", id)
+                    .uniqueResultOptional();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Optional.empty();
     }
 
     @Override
