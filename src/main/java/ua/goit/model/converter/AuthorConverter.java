@@ -4,6 +4,10 @@ import ua.goit.model.dao.AuthorDao;
 import ua.goit.model.dto.AuthorDto;
 
 public class AuthorConverter implements Converter<AuthorDao, AuthorDto>{
+
+    public AuthorConverter() {
+    }
+
     @Override
     public AuthorDto from(AuthorDao type) {
         AuthorDto authorDto = new AuthorDto();

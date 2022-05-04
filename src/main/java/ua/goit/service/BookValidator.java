@@ -7,6 +7,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class BookValidator {
+
+    public BookValidator() {
+    }
+
     public ErrorMessage validateCreateBook(HttpServletRequest request) {
         ErrorMessage errorMessage = new ErrorMessage();
         List<String> errors = new ArrayList<>();

@@ -1,14 +1,11 @@
 package ua.goit.controller;
 
-import ua.goit.config.DatabaseManager;
-import ua.goit.config.HibernateProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ua.goit.model.ErrorMessage;
-import ua.goit.model.converter.AuthorConverter;
-import ua.goit.model.converter.BookConverter;
 import ua.goit.model.dto.AuthorDto;
 import ua.goit.model.dto.BookDto;
-import ua.goit.repository.AuthorRepository;
-import ua.goit.repository.BookRepository;
 import ua.goit.service.AuthorService;
 import ua.goit.service.BookService;
 import ua.goit.service.BookValidator;
@@ -26,18 +23,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = "/addBook")
+@Configurable
 public class AddBookServlet extends HttpServlet {
     private BookService bookService;
     private AuthorService authorService;
     private BookValidator bookValidator;
 
+    public AddBookServlet() {
+    }
+
     @Override
     public void init() {
-        DatabaseManager dbConnector = new HibernateProvider();
-        final AuthorConverter authorConverter = new AuthorConverter();
-        bookService = new BookService(new BookRepository(dbConnector), new BookConverter(authorConverter), authorConverter);
-        authorService = new AuthorService(new AuthorRepository(dbConnector), authorConverter);
-        bookValidator = new BookValidator();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 
     @Override
@@ -63,5 +60,20 @@ public class AddBookServlet extends HttpServlet {
         bookDto.setAuthors(authorDtos);
         bookService.save(bookDto);
         req.getRequestDispatcher("/WEB-INF/html/bookAdded.jsp").forward(req, resp);
+    }
+
+    @Autowired
+    public void setBookService(BookService bookService) {
+        this.bookService = bookService;
+    }
+
+    @Autowired
+    public void setAuthorService(AuthorService authorService) {
+        this.authorService = authorService;
+    }
+
+    @Autowired
+    public void setBookValidator(BookValidator bookValidator) {
+        this.bookValidator = bookValidator;
     }
 }

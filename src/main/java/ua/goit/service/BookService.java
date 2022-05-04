@@ -15,7 +15,7 @@ public class BookService {
     private final BookConverter bookConverter;
     private final AuthorConverter authorConverter;
 
-    public BookService(BookRepository bookRepository, ua.goit.model.converter.BookConverter bookConverter, AuthorConverter authorConverter) {
+    public BookService(BookRepository bookRepository, BookConverter bookConverter, AuthorConverter authorConverter) {
         this.bookRepository = bookRepository;
         this.bookConverter = bookConverter;
         this.authorConverter = authorConverter;

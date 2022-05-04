@@ -9,6 +9,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HibernateProvider implements DatabaseManager{
     private static SessionFactory sessionFactory;
 
+    public HibernateProvider() {
+        init();
+    }
+
     @Override
     public Session getSession(){
         return sessionFactory.openSession();

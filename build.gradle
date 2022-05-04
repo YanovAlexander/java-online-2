@@ -26,6 +26,7 @@ ext {
     javaxPersistenceVersion = '2.2'
     junitVersion = '5.8.2'
     mockitoVersion = '4.0.0'
+    springVersion = '5.2.12.RELEASE'
 }
 
 
@@ -40,6 +41,11 @@ dependencies {
     implementation "com.sun.xml.bind:jaxb-core:${jaxbCoreVersion}"
     implementation "javax.xml.bind:jaxb-api:${jaxbVersion}"
     implementation "com.sun.xml.bind:jaxb-impl:${jaxbVersion}"
+    implementation group: 'org.springframework', name: 'spring-context-support', version: "${springVersion}"
+    implementation group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
+    implementation group: 'org.springframework', name: 'spring-aspects', version: "${springVersion}"
+    implementation group: 'org.springframework', name: 'spring-web', version: "${springVersion}"
+    
     implementation group: "javax.persistence", name: "javax.persistence-api", version: "${javaxPersistenceVersion}"
     testImplementation group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "${junitVersion}"
     testImplementation group: "org.junit.vintage", name: "junit-vintage-engine", version: "${junitVersion}"

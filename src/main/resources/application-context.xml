@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+                                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                              xmlns:context="http://www.springframework.org/schema/context"
+                                              xsi:schemaLocation="http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+ 		http://www.springframework.org/schema/context
+ 		http://www.springframework.org/schema/context/spring-context-3.2.xsd ">
+    <context:spring-configured/>
+    <context:annotation-config/>
+    <context:component-scan base-package="ua.goit"/>
+
+    <bean id="bookService" class="ua.goit.service.BookService">
+        <constructor-arg ref="bookRepository"/>
+        <constructor-arg ref="authorConverter"/>
+        <constructor-arg ref="bookConverter"/>
+    </bean>
+
+    <bean id="bookValidator" class="ua.goit.service.BookValidator"/>
+
+    <bean id="authorService" class="ua.goit.service.AuthorService">
+        <constructor-arg ref="authorRepository"/>
+        <constructor-arg ref="authorConverter"/>
+    </bean>
+
+    <bean id="bookRepository" class="ua.goit.repository.BookRepository">
+        <constructor-arg ref="databaseManager"/>
+    </bean>
+
+    <bean id="authorRepository" class="ua.goit.repository.AuthorRepository">
+        <constructor-arg ref="databaseManager"/>
+    </bean>
+
+    <bean id="databaseManager" class="ua.goit.config.HibernateProvider"/>
+
+    <bean id="bookConverter" class="ua.goit.model.converter.BookConverter">
+        <constructor-arg ref="authorConverter"/>
+    </bean>
+
+    <bean id="authorConverter" class="ua.goit.model.converter.AuthorConverter"/>
+</beans>
