@@ -14,6 +14,13 @@ test {
     useJUnitPlatform()
 }
 
+ext {
+    hibernateVersion = '5.4.10.Final'
+    log4jVersion= '2.12.1'
+    log4jVersion = '2.12.1'
+    springVersion = '5.2.4.RELEASE'
+}
+
 dependencies {
     implementation 'org.postgresql:postgresql:42.3.4'
     implementation 'com.zaxxer:HikariCP:4.0.3'
@@ -26,6 +33,10 @@ dependencies {
     implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'com.sun.xml.bind:jaxb-impl:2.3.1'
+    implementation group: 'org.springframework', name: 'spring-context-support', version: "${springVersion}"
+    implementation group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
+    implementation group: 'org.springframework', name: 'spring-aspects', version: "${springVersion}"
+    implementation group: 'org.springframework', name: 'spring-web', version: "${springVersion}"
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
     testImplementation group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '5.8.2'
