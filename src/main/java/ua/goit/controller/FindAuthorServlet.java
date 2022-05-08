@@ -1,5 +1,7 @@
 package ua.goit.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.goit.config.DatabaseManager;
 import ua.goit.config.HibernateProvider;
 import ua.goit.exception.AuthorNotFoundException;
@@ -17,6 +19,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/findAuthor")
 public class FindAuthorServlet extends HttpServlet {
+    public static final Logger LOGGER = LogManager.getLogger(FindAuthorServlet.class);
     private AuthorService authorService;
 
     @Override

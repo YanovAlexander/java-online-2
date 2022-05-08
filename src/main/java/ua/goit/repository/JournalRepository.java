@@ -1,5 +1,7 @@
 package ua.goit.repository;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.goit.config.DatabaseManager;
 import ua.goit.model.dao.JournalDao;
 
@@ -13,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public class JournalRepository implements Repository<JournalDao>{
+    public static final Logger LOGGER = LogManager.getLogger(JournalRepository.class);
     private final DatabaseManager manager;
     private static final String INSERT =  "INSERT INTO journal (name, count_pages, number, publication_year) VALUES (?, ?, ?, ?)";
 

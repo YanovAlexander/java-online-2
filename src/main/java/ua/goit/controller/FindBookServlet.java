@@ -1,5 +1,6 @@
 package ua.goit.controller;
 
+import org.apache.logging.log4j.LogManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.goit.config.DatabaseManager;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/findBook")
 public class FindBookServlet extends HttpServlet {
+    public static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(FindBookServlet.class);
     private static final Logger logger = LoggerFactory.getLogger(FindBookServlet.class);
     private BookService service;
 

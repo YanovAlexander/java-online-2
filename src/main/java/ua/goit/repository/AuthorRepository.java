@@ -1,6 +1,8 @@
 package ua.goit.repository;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 import ua.goit.config.DatabaseManager;
@@ -16,6 +18,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AuthorRepository implements Repository<AuthorDao>{
+    public static final Logger LOGGER = LogManager.getLogger(AuthorRepository.class);
     private final DatabaseManager databaseManager;
     private static final String INSERT = "INSERT INTO author (first_name, last_name, email) VALUES (?, ?, ?);";
     private static final String FIND_BY_ID = "SELECT id, first_name, last_name, email FROM author WHERE id=?;";

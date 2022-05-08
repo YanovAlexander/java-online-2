@@ -1,5 +1,7 @@
 package ua.goit.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.goit.config.DatabaseManager;
 import ua.goit.config.HibernateProvider;
 import ua.goit.model.ErrorMessage;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = "/addBook")
 public class AddBookServlet extends HttpServlet {
+    public static final Logger LOGGER = LogManager.getLogger(AddBookServlet.class);
     private BookService bookService;
     private AuthorService authorService;
     private BookValidator bookValidator;

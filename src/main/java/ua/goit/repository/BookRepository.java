@@ -1,5 +1,7 @@
 package ua.goit.repository;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
@@ -12,6 +14,7 @@ import java.util.*;
 
 
 public class BookRepository implements Repository<BookDao>, BookRepositoryCustom {
+    public static final Logger LOGGER = LogManager.getLogger(BookRepository.class);
 
     private static final String INSERT_BOOK_AUTHOR = "INSERT INTO book_author(book_id, author_id) VALUES(?, ?);";
 

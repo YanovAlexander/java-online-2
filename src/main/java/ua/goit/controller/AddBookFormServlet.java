@@ -1,5 +1,7 @@
 package ua.goit.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.goit.config.DatabaseManager;
 import ua.goit.config.HibernateProvider;
 import ua.goit.model.converter.AuthorConverter;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/addBookForm")
 public class AddBookFormServlet extends HttpServlet {
+    public static final Logger LOGGER = LogManager.getLogger(AddBookFormServlet.class);
     private AuthorService service;
 
     @Override
