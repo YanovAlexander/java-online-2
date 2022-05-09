@@ -9,13 +9,16 @@
     <context:spring-configured/>
     <context:annotation-config/>
     <context:component-scan base-package="ua.goit"/>
+    <context:property-placeholder/>
 
     <bean id="bookRepository" class="ua.goit.repository.BookRepository">
         <constructor-arg ref="hibernateProvider"/>
     </bean>
     <bean id="authorRepository" class="ua.goit.repository.AuthorRepository">
         <constructor-arg ref="hibernateProvider"/>
+        <constructor-arg ref="jdbcTemplate"/>
     </bean>
+
     <bean id="bookService" class="ua.goit.service.BookService">
         <constructor-arg ref="bookRepository"/>
         <constructor-arg ref="bookConverter"/>
@@ -33,4 +36,22 @@
     <constructor-arg ref="authorConverter"/>
     </bean>
     <bean id="hibernateProvider" class="ua.goit.config.HibernateProvider"/>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+<!--        <property name="driverClassName" value="org.postgresql.Driver"/>-->
+<!--        <property name="url" value="jdbc:postgresql://localhost:5432/goit_library"/>-->
+<!--        <property name="username" value="postgres"/>-->
+<!--        <property name="password" value="12345"/>-->
+<!--    </bean>-->
+
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="${DRIVER_CLASS_NAME}"/>
+            <property name="url" value="${DB_URL}"/>
+            <property name="username" value="${DB_USERNAME}"/>
+            <property name="password" value="${DB_PASSWORD}"/>
+        </bean>
 </beans>

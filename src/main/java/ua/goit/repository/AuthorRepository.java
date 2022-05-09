@@ -3,9 +3,10 @@ package ua.goit.repository;
 
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
+import org.springframework.jdbc.core.JdbcTemplate;
 import ua.goit.config.DatabaseManager;
 import ua.goit.model.dao.AuthorDao;
-import ua.goit.model.dao.BookDao;
+import ua.goit.repository.rowmapper.AuthorDaoRowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,8 +24,11 @@ public class AuthorRepository implements Repository<AuthorDao>{
     private static  final String FIND_ALL = "SELECT id, first_name, last_name, email FROM author;";
     private static final String FIND_BY_IDS = "SELECT id, first_name, last_name, email FROM author WHERE id IN (?);";
 
-    public AuthorRepository(DatabaseManager databaseManager) {
+    private final JdbcTemplate jdbcTemplate;
+
+    public AuthorRepository(DatabaseManager databaseManager, JdbcTemplate jdbcTemplate) {
         this.databaseManager = databaseManager;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public Optional<AuthorDao> findByEmail(String email) {
@@ -58,10 +62,8 @@ public class AuthorRepository implements Repository<AuthorDao>{
 
     @Override
     public Optional<AuthorDao> findById(Integer id) {
-        try(Session session = databaseManager.getSession()) {
-           return session.createQuery("FROM AuthorDao ad WHERE ad.id=:id")
-                    .setParameter("id", id)
-                    .uniqueResultOptional();
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(FIND_BY_ID,new Object[]{id}, new AuthorDaoRowMapper()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
