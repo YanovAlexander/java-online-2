@@ -9,6 +9,7 @@
     <context:spring-configured/>
     <context:annotation-config/>
     <context:component-scan base-package="ua.goit"/>
+    <context:property-placeholder/>
 
     <bean id="bookService" class="ua.goit.service.BookService">
         <constructor-arg ref="bookRepository"/>
@@ -29,6 +30,7 @@
 
     <bean id="authorRepository" class="ua.goit.repository.AuthorRepository">
         <constructor-arg ref="databaseManager"/>
+        <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
     <bean id="databaseManager" class="ua.goit.config.HibernateProvider"/>
@@ -38,4 +40,16 @@
     </bean>
 
     <bean id="authorConverter" class="ua.goit.model.converter.AuthorConverter"/>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${DB_DRIVER_CLASS_NAME:org.postgresql.Driver}"/>
+        <property name="url" value="${DB_URL:jdbc:postgresql://localhost:5432/goit_library}"/>
+        <property name="username" value="${DB_USERNAME:postgres}"/>
+        <property name="password" value="${DB_PASSWORD:12345}"/>
+
+    </bean>
 </beans>

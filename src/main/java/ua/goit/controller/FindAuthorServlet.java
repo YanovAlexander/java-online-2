@@ -1,11 +1,10 @@
 package ua.goit.controller;
 
-import ua.goit.config.DatabaseManager;
-import ua.goit.config.HibernateProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ua.goit.exception.AuthorNotFoundException;
-import ua.goit.model.converter.AuthorConverter;
 import ua.goit.model.dto.AuthorDto;
-import ua.goit.repository.AuthorRepository;
 import ua.goit.service.AuthorService;
 
 import javax.servlet.ServletException;
@@ -16,14 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/findAuthor")
+@Configurable
 public class FindAuthorServlet extends HttpServlet {
     private AuthorService authorService;
 
     @Override
     public void init() throws ServletException {
-        DatabaseManager dbConnector = new HibernateProvider();
-        AuthorRepository authorRepository = new AuthorRepository(dbConnector);
-        authorService = new AuthorService(authorRepository, new AuthorConverter());
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 
     @Override
@@ -45,5 +43,10 @@ public class FindAuthorServlet extends HttpServlet {
         }
         req.setAttribute("author", author);
         req.getRequestDispatcher("/WEB-INF/html/findAuthor.jsp").forward(req, resp);
+    }
+
+    @Autowired
+    public void setAuthorService(AuthorService authorService) {
+        this.authorService = authorService;
     }
 }
