@@ -33,7 +33,7 @@ public class AuthorRepository implements Repository<AuthorDao>{
         try (Session session = databaseManager.getSession()) {
             return session.createQuery("FROM AuthorDao ad WHERE ad.email=:email")
                     .setParameter("email", email)
-                    .setResultListTransformer(Transformers.aliasToBean(AuthorDao.class))
+                    .setResultTransformer(Transformers.aliasToBean(AuthorDao.class))
                     .uniqueResultOptional();
         } catch (Exception throwables) {
             throwables.printStackTrace();

@@ -48,7 +48,7 @@ public class BookRepository implements Repository<BookDao>, BookRepositoryCustom
         try (Session session = manager.getSession()){
             List<BookDao> books = session.createQuery(SELECT_BY_NAME)
                     .setParameter("name", name)
-                    .setResultListTransformer(Transformers.aliasToBean(BookDao.class))
+                    .setResultTransformer(Transformers.aliasToBean(BookDao.class))
                     .list();
             return books;
         } catch (Exception ex) {

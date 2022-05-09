@@ -2,14 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
                                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                                               xmlns:context="http://www.springframework.org/schema/context"
+                                              xmlns:tx="http://www.springframework.org/schema/tx"
+                                              xmlns:jpa="http://www.springframework.org/schema/data/jpa"
                                               xsi:schemaLocation="http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
  		http://www.springframework.org/schema/context
- 		http://www.springframework.org/schema/context/spring-context-3.2.xsd ">
+ 		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+ 		http://www.springframework.org/schema/tx
+ 		http://www.springframework.org/schema/tx/spring-tx.xsd
+ 		http://www.springframework.org/schema/data/jpa
+ 		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
     <context:spring-configured/>
     <context:annotation-config/>
     <context:component-scan base-package="ua.goit"/>
     <context:property-placeholder/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <jpa:repositories base-package="ua.goit" entity-manager-factory-ref="emf"
+                      transaction-manager-ref="transactionManager"/>
 
     <bean id="bookService" class="ua.goit.service.BookService">
         <constructor-arg ref="bookRepository"/>
@@ -50,6 +61,21 @@
         <property name="url" value="${DB_URL:jdbc:postgresql://localhost:5432/goit_library}"/>
         <property name="username" value="${DB_USERNAME:postgres}"/>
         <property name="password" value="${DB_PASSWORD:12345}"/>
-
     </bean>
+
+    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="persistenceProvider">
+            <bean class="org.hibernate.jpa.HibernatePersistenceProvider"/>
+        </property>
+        <property name="packagesToScan" value="ua.goit"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="emf"/>
+    </bean>
+
 </beans>
