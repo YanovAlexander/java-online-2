@@ -3,7 +3,6 @@ package ua.goit.service;
 import ua.goit.model.converter.AuthorConverter;
 import ua.goit.model.converter.BookConverter;
 import ua.goit.model.dao.BookDao;
-import ua.goit.model.dto.AuthorDto;
 import ua.goit.model.dto.BookDto;
 import ua.goit.repository.BookRepository;
 
@@ -23,10 +22,6 @@ public class BookService {
 
     public void save(BookDto book) {
         bookRepository.save(bookConverter.to(book));
-    }
-
-    public void addAuthorToBook(BookDto book, AuthorDto dto) {
-        bookRepository.addAuthorToBook(bookConverter.to(book), authorConverter.to(dto));
     }
 
     public List<BookDto> findBookByName(String name) {
