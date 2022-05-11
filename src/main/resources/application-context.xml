@@ -27,7 +27,9 @@
         <constructor-arg ref="bookConverter"/>
     </bean>
 
-    <bean id="bookValidator" class="ua.goit.service.BookValidator"/>
+    <bean id="bookValidator" class="ua.goit.service.BookValidator">
+        <constructor-arg ref="bookRepository"/>
+    </bean>
 
     <bean id="authorService" class="ua.goit.service.AuthorService">
         <constructor-arg ref="authorRepository"/>
