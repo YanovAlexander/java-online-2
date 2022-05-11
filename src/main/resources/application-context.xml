@@ -71,4 +71,12 @@
         <property name="entityManagerFactory" ref="emf"/>
     </bean>
 
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/html/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
 </beans>

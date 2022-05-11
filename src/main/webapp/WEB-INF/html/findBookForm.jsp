@@ -10,7 +10,7 @@
     <body>
         <c:import url="${contextPath}/WEB-INF/html/navibar.jsp"/>
         <div class="container">
-            <form action="/findBook">
+            <form action="/books/findBook">
                 <div class="form-group">
                     <label for="bookName">Book name:</label><br>
                     <input type="text" class="form-control" id="bookName" placeholder="Enter book name" name="bookName"><br>
