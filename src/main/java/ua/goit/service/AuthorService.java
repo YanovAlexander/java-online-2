@@ -9,6 +9,7 @@ import ua.goit.repository.AuthorRepository;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class AuthorService {
     private AuthorRepository authorRepository;
@@ -48,7 +49,7 @@ public class AuthorService {
     }
 
     public List<AuthorDto> findAll() {
-        return authorRepository.findAll().stream()
+        return StreamSupport.stream(authorRepository.findAll().spliterator(), false)
                 .map(authorDao -> converter.from(authorDao))
                 .collect(Collectors.toList());
     }

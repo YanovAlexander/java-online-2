@@ -1,4 +1,0 @@
-<ehcache>
-    <cache name="ua.goit.model.dao.BookDao" maxElementsInMemory="1000" />
-    <cache name="ua.goit.model.dao.AuthorDao" maxElementsInMemory="1000" />
-</ehcache>

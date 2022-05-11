@@ -24,7 +24,6 @@
 
     <bean id="bookService" class="ua.goit.service.BookService">
         <constructor-arg ref="bookRepository"/>
-        <constructor-arg ref="authorConverter"/>
         <constructor-arg ref="bookConverter"/>
     </bean>
 
@@ -34,17 +33,6 @@
         <constructor-arg ref="authorRepository"/>
         <constructor-arg ref="authorConverter"/>
     </bean>
-
-    <bean id="bookRepository" class="ua.goit.repository.BookRepository">
-        <constructor-arg ref="databaseManager"/>
-    </bean>
-
-    <bean id="authorRepository" class="ua.goit.repository.AuthorRepository">
-        <constructor-arg ref="databaseManager"/>
-        <constructor-arg ref="jdbcTemplate"/>
-    </bean>
-
-    <bean id="databaseManager" class="ua.goit.config.HibernateProvider"/>
 
     <bean id="bookConverter" class="ua.goit.model.converter.BookConverter">
         <constructor-arg ref="authorConverter"/>
@@ -70,6 +58,14 @@
         </property>
         <property name="persistenceProvider">
             <bean class="org.hibernate.jpa.HibernatePersistenceProvider"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.generate_statistics">true</prop>
+            </props>
         </property>
         <property name="packagesToScan" value="ua.goit"/>
     </bean>
