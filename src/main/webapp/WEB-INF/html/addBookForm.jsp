@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -10,19 +12,17 @@
     <body>
         <c:import url="${contextPath}/WEB-INF/html/navibar.jsp"/>
         <div class="container">
-            <form action="/addBook" method="post">
+            <form:form action="/books/addBook" method="post" modelAttribute="bookDto">
                 <div class="form-group">
                     <label for="bookName">Book name:</label><br>
-                    <input type="text" class="form-control" id="bookName" placeholder="Enter book name" name="bookName"><br>
+                    <form:input type="text" path="name" class="form-control" id="bookName" name="bookName"/><br>
                     <label for="countPages">Count pages:</label><br>
-                    <input type="number" class="form-control" id="countPages" placeholder="Enter pages count" name="countPages"><br>
+                    <form:input type="number" path="countPages" class="form-control" id="countPages" name="countPages"/><br>
                     <label for="authorId">Select author:</label><br>
-                    <c:forEach items="${authors}" var="author">
-                      <input type="checkbox" name="authorId" value="${author.id}"> <c:out value="${author.firstName}"/> <c:out value="${author.lastName}"/> <br>
-                    </c:forEach>
+                    <form:checkboxes path="authors" items="${authors}" itemLabel="firstName"/> <br>
                 </div>
                     <input type="submit" value="Submit">
-           </form>
+           </form:form>
             <c:if test="${not empty errorMessage}">
               <c:forEach items="${errorMessage.errors}" var="error">
                  <p style="color:red">${error}</p>
