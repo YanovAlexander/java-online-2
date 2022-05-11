@@ -43,7 +43,6 @@ dependencies {
     implementation group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
     implementation group: 'org.springframework', name: 'spring-aspects', version: "${springVersion}"
     implementation group: 'org.springframework', name: 'spring-web', version: "${springVersion}"
-    implementation group: 'org.springframework', name: 'spring-jdbc', version: "${springVersion}"
     implementation group: "javax.persistence", name: "javax.persistence-api", version: "${javaxPersistenceVersion}"
     implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.2.6.RELEASE'
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${log4jVersion}"

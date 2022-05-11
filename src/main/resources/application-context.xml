@@ -18,8 +18,7 @@
     <context:component-scan base-package="ua.goit"/>
     <context:property-placeholder/>
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
-    <jpa:repositories base-package="ua.goit" entity-manager-factory-ref="emf"
+    <jpa:repositories base-package="ua.goit.repository" entity-manager-factory-ref="emf"
                       transaction-manager-ref="transactionManager"/>
 
     <bean id="bookService" class="ua.goit.service.BookService">
@@ -41,10 +40,6 @@
     </bean>
 
     <bean id="authorConverter" class="ua.goit.model.converter.AuthorConverter"/>
-
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${DB_DRIVER_CLASS_NAME:org.postgresql.Driver}"/>
