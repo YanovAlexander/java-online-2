@@ -68,12 +68,10 @@ public class AuthorDto {
 
     @Override
     public String toString() {
-        return "AuthorDto{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return id +
+                ", " + firstName +
+                ", " + lastName +
+                ", " + email ;
     }
 
     @Override

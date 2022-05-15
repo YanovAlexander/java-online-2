@@ -3,10 +3,12 @@ package ua.goit.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ua.goit.model.dto.AuthorDto;
 import ua.goit.model.dto.BookDto;
+import ua.goit.service.AuthorPropertyEditor;
 import ua.goit.service.AuthorService;
 import ua.goit.service.BookService;
 
@@ -48,10 +50,6 @@ public class BookController {
 
     @PostMapping(path = "/addBook")
     public String addBook(@ModelAttribute("bookDto") BookDto dto, Model model) {
-        Set<AuthorDto> authorDtos = authorService.findByIds(dto.getAuthors().stream()
-                .map(AuthorDto::getId)
-                .collect(Collectors.toSet()));
-        dto.setAuthors(authorDtos);
         bookService.save(dto);
         return "bookAdded";
     }
@@ -59,5 +57,10 @@ public class BookController {
     @ModelAttribute("bookDto")
     public BookDto getDefaultBookDto() {
         return new BookDto();
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.registerCustomEditor(AuthorDto.class, new AuthorPropertyEditor());
     }
 }
