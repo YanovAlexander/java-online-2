@@ -2,6 +2,7 @@ package ua.goit.service;
 
 import ua.goit.model.ErrorMessage;
 import ua.goit.model.dao.BookDao;
+import ua.goit.model.dto.BookDto;
 import ua.goit.repository.BookRepository;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +46,33 @@ public class BookValidator {
             }
         } catch (Exception e) {
             errors.add("Authors must be set");
+        }
+
+        errorMessage.setErrors(errors);
+
+        return errorMessage;
+    }
+
+    public ErrorMessage validateCreateBook(BookDto dto) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        List<String> errors = new ArrayList<>();
+
+        if (Objects.isNull(dto.getName()) || dto.getName().isBlank()) {
+            errors.add("Book title can not be empty");
+        }
+
+        if (Objects.isNull(dto.getCountPages())) {
+            errors.add("Count pages number is invalid");
+        }
+
+        if (Objects.isNull(dto.getAuthors()) || dto.getAuthors().isEmpty()) {
+            errors.add("Authors must be set");
+        }
+
+        List<BookDao> savedBooks = bookRepository.findByName(dto.getName());
+
+        if (!savedBooks.isEmpty()) {
+            errors.add(String.format("Book title %s already exist", dto.getName()));
         }
 
         errorMessage.setErrors(errors);

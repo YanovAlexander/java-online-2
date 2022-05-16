@@ -7,9 +7,9 @@ public class BookDto {
     private Integer id;
     private Set<AuthorDto> authors;
     private String name;
-    private int countPages;
+    private Integer countPages;
 
-    public BookDto(Integer id, String name, int countPages, Set<AuthorDto> author) {
+    public BookDto(Integer id, String name, Integer countPages, Set<AuthorDto> author) {
         this.id = id;
         this.name = name;
         this.countPages = countPages;
@@ -35,11 +35,11 @@ public class BookDto {
         this.name = name;
     }
 
-    public int getCountPages() {
+    public Integer getCountPages() {
         return countPages;
     }
 
-    public void setCountPages(int countPages) {
+    public void setCountPages(Integer countPages) {
         this.countPages = countPages;
     }
 
