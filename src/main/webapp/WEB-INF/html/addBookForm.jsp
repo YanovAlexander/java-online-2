@@ -15,13 +15,14 @@
             <form:form action="/books/addBook" method="post" modelAttribute="bookDto">
                 <div class="form-group">
                     <form:label path="name">Book name:</form:label><br>
-                    <form:input type="text" class="form-control" id="bookName" placeholder="Enter book name" name="bookName" path="name"/><br>
+                    <form:input type="text" class="form-control" id="bookName" placeholder="Enter book name" name="bookName" path="name"/><form:errors path="name" style="color:red"/><br>
                     <form:label path="countPages">Count pages:</form:label><br>
-                    <form:input type="number" class="form-control" id="countPages" placeholder="Enter pages count" name="countPages" path="countPages"/><br>
+                    <form:input type="number" class="form-control" id="countPages" placeholder="Enter pages count" name="countPages" path="countPages"/><form:errors path="countPages" style="color:red"/><br>
                     <form:label path="authors">Select author:</form:label><br>
                      <c:forEach items="${authors}" var="author">
-                        <form:checkbox path="authors" value="${author}"/> <c:out value="${author.firstName}"/> <c:out value="${author.lastName}"/> <br>
+                        <form:checkbox path="authors" value="${author}"/> <c:out value="${author.firstName}"/> <c:out value="${author.lastName}"/><br>
                      </c:forEach>
+                     <form:errors path="authors" style="color:red"/><br>
                 </div>
                     <input type="submit" value="Submit"/>
            </form:form>
