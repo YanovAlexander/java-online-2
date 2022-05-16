@@ -1,6 +1,8 @@
 package ua.goit.model.dto;
 
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 public class BookDto {
@@ -19,6 +21,7 @@ public class BookDto {
     public BookDto() {
     }
 
+    @NotEmpty
     public Set<AuthorDto> getAuthors() {
         return authors;
     }
@@ -27,6 +30,7 @@ public class BookDto {
         this.authors = author;
     }
 
+    @NotEmpty
     public String getName() {
         return name;
     }
@@ -35,11 +39,12 @@ public class BookDto {
         this.name = name;
     }
 
-    public int getCountPages() {
+    @NotNull
+    public Integer getCountPages() {
         return countPages;
     }
 
-    public void setCountPages(int countPages) {
+    public void setCountPages(Integer countPages) {
         this.countPages = countPages;
     }
 

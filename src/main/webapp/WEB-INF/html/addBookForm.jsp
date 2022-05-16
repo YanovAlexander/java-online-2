@@ -15,11 +15,11 @@
             <form:form action="/books/addBook" method="post" modelAttribute="bookDto">
                 <div class="form-group">
                     <label for="bookName">Book name:</label><br>
-                    <form:input type="text" path="name" class="form-control" id="bookName" name="bookName"/><br>
+                    <form:input type="text" path="name" class="form-control" id="bookName" name="bookName"/><form:errors path="name" cssClass="error"/> <br>
                     <label for="countPages">Count pages:</label><br>
-                    <form:input type="number" path="countPages" class="form-control" id="countPages" name="countPages"/><br>
+                    <form:input type="number" path="countPages" class="form-control" id="countPages" name="countPages"/> <form:errors path="countPages" cssClass="error"/> <br>
                     <label for="authorId">Select author:</label><br>
-                    <form:checkboxes path="authors" items="${authors}" itemLabel="firstName"/> <br>
+                    <form:checkboxes path="authors" items="${authors}" itemLabel="firstName"/> <form:errors path="authors" cssClass="error"/> <br>
                 </div>
                     <input type="submit" value="Submit">
            </form:form>
