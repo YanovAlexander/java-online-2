@@ -1,5 +1,7 @@
 package ua.goit.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.goit.model.ErrorMessage;
 import ua.goit.model.dao.BookDao;
 import ua.goit.model.dto.BookDto;
@@ -9,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public class BookValidator {
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
+    @Autowired
     public BookValidator(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }

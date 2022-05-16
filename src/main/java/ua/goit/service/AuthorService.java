@@ -1,5 +1,7 @@
 package ua.goit.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.goit.exception.AuthorAlreadyExistException;
 import ua.goit.exception.AuthorNotFoundException;
 import ua.goit.model.converter.AuthorConverter;
@@ -11,10 +13,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Service
 public class AuthorService {
-    private AuthorRepository authorRepository;
-    private AuthorConverter converter;
+    private final AuthorRepository authorRepository;
+    private final AuthorConverter converter;
 
+    @Autowired
     public AuthorService(AuthorRepository authorRepository, AuthorConverter converter) {
         this.authorRepository = authorRepository;
         this.converter = converter;

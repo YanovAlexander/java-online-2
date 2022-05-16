@@ -1,13 +1,17 @@
 package ua.goit.model.converter;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.goit.model.dao.BookDao;
 import ua.goit.model.dto.BookDto;
 
 import java.util.stream.Collectors;
 
+@Service
 public class BookConverter implements Converter<BookDao, BookDto>{
-    AuthorConverter authorConverter;
+    private final AuthorConverter authorConverter;
 
+    @Autowired
     public BookConverter(AuthorConverter authorConverter) {
         this.authorConverter = authorConverter;
     }

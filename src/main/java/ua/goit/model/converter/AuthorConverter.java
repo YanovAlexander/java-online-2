@@ -1,8 +1,10 @@
 package ua.goit.model.converter;
 
+import org.springframework.stereotype.Service;
 import ua.goit.model.dao.AuthorDao;
 import ua.goit.model.dto.AuthorDto;
 
+@Service
 public class AuthorConverter implements Converter<AuthorDao, AuthorDto>{
 
     public AuthorConverter() {

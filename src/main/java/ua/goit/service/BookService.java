@@ -1,5 +1,7 @@
 package ua.goit.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.goit.model.converter.BookConverter;
 import ua.goit.model.dao.BookDao;
 import ua.goit.model.dto.BookDto;
@@ -8,10 +10,12 @@ import ua.goit.repository.BookRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class BookService {
     private final BookRepository bookRepository;
     private final BookConverter bookConverter;
 
+    @Autowired
     public BookService(BookRepository bookRepository, BookConverter bookConverter) {
         this.bookRepository = bookRepository;
         this.bookConverter = bookConverter;
