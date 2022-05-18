@@ -19,4 +19,5 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <jpa:repositories base-package="ua.goit.repository" entity-manager-factory-ref="emf"
                       transaction-manager-ref="transactionManager"/>
+    <import resource="spring-security.xml"/>
 </beans>
