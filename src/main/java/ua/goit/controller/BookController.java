@@ -27,26 +27,26 @@ public class BookController {
         this.authorService = authorService;
     }
 
-    @GetMapping(path = "/findBookForm")
+    @GetMapping(path = "/form/find")
     public String getBookForm() {
         return "findBookForm";
     }
 
-    @GetMapping(path = "/findBook")
-    public String getBook(@RequestParam("bookName") String bookName, Model model) {
+    @GetMapping(path = "/name/")
+    public String getBook(@RequestParam("name") String bookName, Model model) {
         List<BookDto> book = bookService.findBookByName(bookName);
         model.addAttribute("books", book);
         return "findBook";
     }
 
-    @GetMapping(path = "/addBookForm")
+    @GetMapping(path = "/form/add")
     public String getBookFrom(Model model) {
         List<AuthorDto> authors = authorService.findAll();
         model.addAttribute("authors", authors);
         return "addBookForm";
     }
 
-    @PostMapping(path = "/addBook")
+    @PostMapping
     public String addBook(@ModelAttribute("bookDto") @Valid BookDto bookDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             List<AuthorDto> authors = authorService.findAll();

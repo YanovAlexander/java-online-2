@@ -10,10 +10,10 @@
     <body>
         <c:import url="${contextPath}/WEB-INF/html/navibar.jsp"/>
         <div class="container">
-            <form action="/books/findBook">
+            <form action="/books/name/">
                  <div class="form-group">
-                    <label for="bookName">Book name:</label><br>
-                    <input type="text" class="form-control" id="bookName" placeholder="Enter book name" name="bookName"><br>
+                    <label for="name">Book name:</label><br>
+                    <input type="text" class="form-control" id="name" placeholder="Enter book name" name="bookName"><br>
                  </div>
                      <input type="submit" value="Submit">
             </form>
@@ -37,7 +37,7 @@
                                   </td>
                                   <td>
                                       <c:forEach items="${book.authors}" var="author">
-                                      <a href="/authors/findAuthor?authorId=${author.id}"> <c:out value="${author.firstName}"/> <c:out value="${author.lastName}"/> </a>
+                                      <a href="/authors/id/${author.id}"> <c:out value="${author.firstName}"/> <c:out value="${author.lastName}"/> </a>
                                       </c:forEach>
                                   </td>
                               </tr>

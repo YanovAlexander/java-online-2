@@ -12,7 +12,7 @@
     <body>
         <c:import url="${contextPath}/WEB-INF/html/navibar.jsp"/>
         <div class="container">
-            <form:form action="/books/addBook" method="post" modelAttribute="bookDto">
+            <form:form action="/books/" method="post" modelAttribute="bookDto">
                 <div class="form-group">
                     <form:label path="name">Book name:</form:label><br>
                     <form:input type="text" class="form-control" id="bookName" placeholder="Enter book name" name="bookName" path="name"/><form:errors path="name" style="color:red"/><br>
