@@ -1,11 +1,13 @@
 package ua.goit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ua.goit.controller.propertyEditors.AuthorDtoPropertyEditor;
 import ua.goit.model.dto.AuthorDto;
 import ua.goit.model.dto.BookDto;
@@ -47,15 +49,20 @@ public class BookController {
     }
 
     @PostMapping
-    public String addBook(@ModelAttribute("bookDto") @Valid BookDto bookDto, BindingResult bindingResult, Model model) {
+    public ModelAndView addBook(@ModelAttribute("bookDto") @Valid BookDto bookDto, BindingResult bindingResult,
+                                ModelAndView model) {
         if (bindingResult.hasErrors()) {
             List<AuthorDto> authors = authorService.findAll();
-            model.addAttribute("authors", authors);
-            return "addBookForm";
+            model.addObject("authors", authors);
+            model.setViewName("addBookForm");
+            model.setStatus(HttpStatus.BAD_REQUEST);
+            return model;
         }
 
         bookService.save(bookDto);
-        return "bookAdded";
+        model.setViewName("bookAdded");
+        model.setStatus(HttpStatus.CREATED);
+        return model;
     }
 
     @ModelAttribute
