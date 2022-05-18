@@ -42,3 +42,16 @@ ALTER COLUMN book_id TYPE INT;
 
 ALTER TABLE book_author
 ALTER COLUMN author_id TYPE INT;
+
+CREATE TABLE users
+(
+    id         serial,
+    first_name VARCHAR(1000) NOT NULL,
+    last_name  VARCHAR(1000) NOT NULL,
+    email      VARCHAR(1000),
+    user_role  VARCHAR(100),
+    status     VARCHAR(1000),
+    password   VARCHAR(1000 char) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE(email)
+);
