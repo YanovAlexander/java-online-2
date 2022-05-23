@@ -24,5 +24,10 @@
                    </ul>
                   </li>
                 </ul>
+                <ul class="navbar-nav">
+                  <li>
+                  <a style="float: right" href="${pageContext.request.contextPath}/logout">Logout</a>
+                  </li>
+                </ul>
               </div>
             </nav>

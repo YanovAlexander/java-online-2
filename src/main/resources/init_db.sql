@@ -51,7 +51,7 @@ CREATE TABLE users
     email      VARCHAR(1000),
     user_role  VARCHAR(100),
     status     VARCHAR(1000),
-    password   VARCHAR(1000 char) NOT NULL,
+    password   VARCHAR(1000) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE(email)
 );
