@@ -7,13 +7,21 @@
 						http://www.springframework.org/schema/security
 						https://www.springframework.org/schema/security/spring-security.xsd">
 
-    <security:http auto-config="true">
+    <global-method-security pre-post-annotations="enabled"/>
+
+    <security:http auto-config="true" use-expressions="true">
+        <security:intercept-url pattern="/login" access="permitAll()"/>
+        <security:intercept-url pattern="/logout" access="permitAll()"/>
+        <security:intercept-url pattern="/WEB-INF/css/**" access="permitAll()"/>
+        <security:intercept-url pattern="/users/registration" access="permitAll()"/>
         <security:intercept-url pattern="/**" access="isAuthenticated()"/>
+
         <security:csrf disabled="true"/>
-        <security:logout logout-success-url="/"/>
+        <security:logout logout-success-url="/login?logout"/>
         <security:form-login authentication-success-forward-url="/"
                 default-target-url="/"
-                always-use-default-target="true"/>
+                always-use-default-target="true"
+                login-page="/login"/>
     </security:http>
 
     <security:authentication-manager>
