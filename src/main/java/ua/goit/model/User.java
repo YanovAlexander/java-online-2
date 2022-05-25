@@ -1,5 +1,7 @@
 package ua.goit.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -7,6 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users")
+@Component
 public class User {
     private Integer id;
     private String firstName;

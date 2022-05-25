@@ -1,17 +1,21 @@
 package ua.goit.model.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import ua.goit.model.User;
 
 import java.util.Collection;
 import java.util.Collections;
 
+@Component
 public class UserPrincipal implements UserDetails {
 
     private User user;
 
+    @Autowired
     public UserPrincipal(User user) {
         this.user = user;
     }
