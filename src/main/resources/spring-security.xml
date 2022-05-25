@@ -25,10 +25,8 @@
     </security:http>
 
     <security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="admin" password="{noop}1234" authorities="hasRole(ROLE_ADMIN)" />
-            </security:user-service>
+        <security:authentication-provider user-service-ref="usersDetailsService">
+            <security:password-encoder ref="passwordEncoder"/>
         </security:authentication-provider>
     </security:authentication-manager>
 

@@ -1,6 +1,7 @@
 package ua.goit.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.goit.exception.UserAlreadyExistsException;
@@ -12,7 +13,6 @@ import ua.goit.repository.UserRepository;
 
 @Service
 public class UserService {
-
     private UserRepository userRepository;
     private UserConverter userConverter;
     private PasswordEncoder passwordEncoder;
@@ -37,5 +37,10 @@ public class UserService {
         userRepository.findByUserName(dto.getUserName())
                 .ifPresent((user) -> {throw new UserAlreadyExistsException("User with username " + user.getUserName() +
                         " already exists");});
+    }
+
+    public UserDto loadUserByUserName(String username) {
+       return userConverter.from(userRepository.findByUserName(username).orElseThrow(() ->
+               new UsernameNotFoundException(String.format("User with username %s not exists", username))));
     }
 }

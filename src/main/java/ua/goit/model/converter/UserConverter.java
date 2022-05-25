@@ -30,6 +30,6 @@ public class UserConverter implements Converter<UserDao, UserDto> {
         dao.setUserStatus(type.getUserStatus());
         dao.setUserRole(type.getUserRole());
         dao.setPassword(type.getPassword());
-        return dao  ;
+        return dao;
     }
 }
