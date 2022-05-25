@@ -21,8 +21,8 @@ public class UserService {
     }
 
     public void registerUser(User user) {
-        if (emailExists(user.getEmail())) {
-            throw new UserAlreadyExistsException("There is an account with that email address: " + user.getEmail());
+        if (emailExists(user.getUsername())) {
+            throw new UserAlreadyExistsException("There is an account with that email address: " + user.getUsername());
         }
         user.setUserRole(UserRole.ROLE_NEWCOMER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -31,6 +31,6 @@ public class UserService {
     }
 
     private boolean emailExists(String email) {
-        return userRepository.findByEmail(email).isPresent();
+        return userRepository.findByUsername(email).isPresent();
     }
 }

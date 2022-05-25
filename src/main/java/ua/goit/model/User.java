@@ -11,7 +11,7 @@ public class User {
     private Integer id;
     private String firstName;
     private String lastName;
-    private String email;
+    private String username;
     private UserRole userRole;
     private UserStatus status;
     private String password;
@@ -41,13 +41,13 @@ public class User {
     }
 
     @Email
-    @Column(name = "email")
-    public String getEmail() {
-        return email;
+    @Column(name = "user_name")
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Column(name = "user_role")
@@ -60,7 +60,7 @@ public class User {
         this.userRole = userRole;
     }
 
-    @Column(name = "status")
+    @Column(name = "user_status")
     @Enumerated(EnumType.STRING)
     public UserStatus getStatus() {
         return status;
@@ -77,12 +77,12 @@ public class User {
         User user = (User) o;
         return firstName.equals(user.firstName) &&
                 lastName.equals(user.lastName) &&
-                email.equals(user.email);
+                username.equals(user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email);
+        return Objects.hash(firstName, lastName, username);
     }
 
     @NotEmpty
