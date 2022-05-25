@@ -1,3 +1,5 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
            <nav class="navbar navbar-inverse">
               <div class="container">
                 <div class="navbar-header">
@@ -8,19 +10,25 @@
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Books <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                       <li><a href="/books/form/find">Find</a></li>
-                      <li><a href="/books/form/add">Create</a></li>
+                      <security:authorize access="hasRole('ROLE_ADMIN')">
+                        <li><a href="/books/form/add">Create</a></li>
+                      </security:authorize>
                     </ul>
                   </li>
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Journals <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                       <li><a href="#">Find</a></li>
-                      <li><a href="#">Create</a></li>
+                      <security:authorize access="hasRole('ROLE_ADMIN')">
+                            <li><a href="#">Create</a></li>
+                      </security:authorize>
                     </ul>
                   </li>
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Authors <span class="caret"></span></a>
                    <ul class="dropdown-menu">
                      <li><a href="#">Find</a></li>
-                     <li><a href="#">Create</a></li>
+                      <security:authorize access="hasRole('ROLE_ADMIN')">
+                            <li><a href="#">Create</a></li>
+                      </security:authorize>
                    </ul>
                   </li>
                 </ul>

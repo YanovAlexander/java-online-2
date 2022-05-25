@@ -1,6 +1,7 @@
 package ua.goit.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import ua.goit.model.converter.BookConverter;
 import ua.goit.model.dao.BookDao;
@@ -21,6 +22,7 @@ public class BookService {
         this.bookConverter = bookConverter;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void save(BookDto book) {
         bookRepository.save(bookConverter.to(book));
     }

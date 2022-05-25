@@ -1,6 +1,7 @@
 package ua.goit.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import ua.goit.exception.AuthorAlreadyExistException;
 import ua.goit.exception.AuthorNotFoundException;
@@ -44,6 +45,7 @@ public class AuthorService {
         return authorRepository.findByEmail(email).isPresent();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void save(AuthorDto authorDto) {
         if (authorRepository.findByEmail(authorDto.getEmail()).isEmpty()) {
             authorRepository.save(converter.to(authorDto));
