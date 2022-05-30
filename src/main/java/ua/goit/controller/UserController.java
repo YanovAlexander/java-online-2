@@ -1,6 +1,7 @@
 package ua.goit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +19,11 @@ import javax.validation.Valid;
 @RequestMapping(path = "/users")
 public class UserController {
     private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
 
@@ -35,6 +38,7 @@ public class UserController {
             return "registration";
         }
         try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.save(user);
         } catch (UserAlreadyExistsException ex) {
             model.addAttribute("message", ex.getMessage());

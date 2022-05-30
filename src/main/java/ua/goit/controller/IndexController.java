@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = "/")
 public class IndexController {
 
-    @GetMapping
+    @GetMapping(path = "/index")
     public String getIndexPage() {
         return "index";
     }
 
-    @PostMapping(path = "/")
+    @PostMapping(path = "/index")
     public String getIndex() {
         return "index";
     }

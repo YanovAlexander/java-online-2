@@ -15,13 +15,11 @@ import ua.goit.repository.UserRepository;
 public class UserService {
     private UserRepository userRepository;
     private UserConverter userConverter;
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserConverter userConverter, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, UserConverter userConverter) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public void save(UserDto user) {
@@ -29,7 +27,6 @@ public class UserService {
 
         user.setUserRole(UserRole.ROLE_VISITOR);
         user.setUserStatus(UserStatus.ACTIVE);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(userConverter.to(user));
     }
 
