@@ -21,7 +21,6 @@ test {
 ext {
     postgreSQLVersion = '42.3.4'
     jstlVersion = '1.2'
-    junitVersion = '5.8.2'
     mockitoVersion = '4.0.0'
     springSecurityVersion = '5.2.12.RELEASE'
 }
@@ -37,9 +36,8 @@ dependencies {
     implementation group: 'org.springframework.security', name: 'spring-security-taglibs', version: "${springSecurityVersion}"
 
     implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.34'
-    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "${junitVersion}"
-    testImplementation group: "org.junit.vintage", name: "junit-vintage-engine", version: "${junitVersion}"
-    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: "${junitVersion}"
-    testImplementation group: "org.mockito", name: "mockito-junit-jupiter", version: "${mockitoVersion}"
-    testImplementation group: "org.mockito", name: "mockito-core", version: "${mockitoVersion}"
+    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "5.2.0"
+    testImplementation group: 'org.springframework.security', name: 'spring-security-test'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testImplementation group: 'com.h2database', name: 'h2', version: '2.1.212'
 }
