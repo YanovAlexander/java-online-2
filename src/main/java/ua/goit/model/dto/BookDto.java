@@ -3,6 +3,7 @@ package ua.goit.model.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 import java.util.Set;
 
 public class BookDto {
@@ -54,5 +55,18 @@ public class BookDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookDto bookDto = (BookDto) o;
+        return Objects.equals(id, bookDto.id) && Objects.equals(authors, bookDto.authors) && name.equals(bookDto.name) && countPages.equals(bookDto.countPages);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, authors, name, countPages);
     }
 }

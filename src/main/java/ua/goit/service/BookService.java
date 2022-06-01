@@ -3,6 +3,7 @@ package ua.goit.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import ua.goit.exception.BookAlreadyExistsException;
 import ua.goit.model.converter.BookConverter;
 import ua.goit.model.dao.BookDao;
 import ua.goit.model.dto.BookDto;
@@ -24,6 +25,11 @@ public class BookService {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void save(BookDto book) {
+        List<BookDao> books = bookRepository.findByName(book.getName());
+        if (!books.isEmpty()) {
+            throw new BookAlreadyExistsException(String.format("book with name %s already exists", book.getName()));
+        }
+
         bookRepository.save(bookConverter.to(book));
     }
 

@@ -2,6 +2,7 @@ package ua.goit.model.dao;
 
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -63,5 +64,18 @@ public class BookDao {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookDao bookDao = (BookDao) o;
+        return Objects.equals(id, bookDao.id) && Objects.equals(authors, bookDao.authors) && Objects.equals(name, bookDao.name) && Objects.equals(countPages, bookDao.countPages);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, authors, name, countPages);
     }
 }

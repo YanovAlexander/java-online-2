@@ -24,8 +24,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.contains;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
@@ -53,14 +51,14 @@ class BookControllerTest {
 
     @Test
     @WithMockUser(roles = "VISITOR")
-    void getBookFormShouldReturnBookForm() throws Exception {
+    void testGetBookFormShouldReturnBookForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/books/form/find"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("findBookForm"));
     }
 
     @Test
-    void getBookFormWithIncorrectUserShouldReturnHttpStatus302AndRedirectToLoginPage() throws Exception {
+    void testGetBookFormWithIncorrectUserShouldReturnHttpStatus302AndRedirectToLoginPage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/books/form/find"))
                 .andExpect(MockMvcResultMatchers.status().is(302))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("http://localhost/login"));
@@ -68,7 +66,7 @@ class BookControllerTest {
 
     @Test
     @WithMockUser(roles = "VISITOR")
-    void findBookByNameShouldReturnBook() throws Exception {
+    void testFindBookByNameShouldReturnBook() throws Exception {
         BookDao book = prepareBook();
         when(bookRepository.findByName("book1")).thenReturn(List.of(book));
 
