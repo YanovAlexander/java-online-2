@@ -38,7 +38,7 @@ public class BookRepositoryTest {
         assertThat(books.size(), equalTo(1));
         BookDao book = books.stream().filter(b -> b.getId().equals(1)).findFirst().get();
         assertThat(book.getName(), is("book1"));
-        assertThat(book.getId(), is(2));
+        assertThat(book.getId(), is(1));
         assertThat(book.getCountPages(), is(100));
         assertThat(book.getAuthors().size(), is(2));
     }
