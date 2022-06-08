@@ -25,7 +25,7 @@
                   </li>
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Authors <span class="caret"></span></a>
                    <ul class="dropdown-menu">
-                     <li><a href="#">Find</a></li>
+                     <li><a href="/index">Find</a></li>
                       <security:authorize access="hasRole('ROLE_ADMIN')">
                             <li><a href="#">Create</a></li>
                       </security:authorize>
