@@ -37,7 +37,7 @@ dependencies {
     implementation group: 'org.springframework.security', name: 'spring-security-taglibs', version: "${springSecurityVersion}"
     implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.34'
 
-    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
+    implementation 'com.github.jsimone:webapp-runner:8.5.11.3'
 
     testImplementation group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "5.2.0"
     testImplementation group: 'org.springframework.security', name: 'spring-security-test'
@@ -52,7 +52,7 @@ war.mustRunAfter clean
 
 task copyToLib(type: Copy) {
     into "$buildDir/server"
-    from(configurations.compile) {
+    from(configurations.implementation) {
         include "webapp-runner*"
     }
 }
