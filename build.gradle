@@ -5,6 +5,10 @@ plugins {
     id 'war'
 }
 
+war {
+    enabled=true
+}
+
 group 'ua.goit.java-online-2'
 version '1.0'
 
